@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440" viewBox="0 0 960 440" role="img" aria-labelledby="title desc">
+  <title id="title">Clean n=4 test accuracy comparison</title>
+  <desc id="desc">Bar chart comparing test accuracy for linear, MLP, and modulo-aware transformer models on clean n=4, q=17, sigma=0.</desc>
+  <style>
+    text { font-family: Helvetica, Arial, sans-serif; fill: #18212b; }
+    .axis { stroke: #7a8794; stroke-width: 1; }
+    .grid { stroke: #d8dde3; stroke-width: 1; }
+    .chance { stroke: #b42318; stroke-width: 2; stroke-dasharray: 6 6; }
+    .linear { fill: #a0b7d8; }
+    .mlp { fill: #2f6fed; }
+    .transformer { fill: #f28c28; }
+    .label { font-size: 12px; }
+    .small { font-size: 11px; fill: #4d5b68; }
+    .title { font-size: 20px; font-weight: 700; }
+  </style>
+  <rect width="960" height="440" fill="#fcfcfb" />
+  <line x1="90" y1="370" x2="920" y2="370" class="axis" />
+  <line x1="90" y1="90" x2="90" y2="370" class="axis" />
+
+  <line x1="90" y1="370" x2="920" y2="370" class="grid" />
+  <line x1="90" y1="300" x2="920" y2="300" class="grid" />
+  <line x1="90" y1="230" x2="920" y2="230" class="grid" />
+  <line x1="90" y1="160" x2="920" y2="160" class="grid" />
+  <line x1="90" y1="90" x2="920" y2="90" class="grid" />
+
+  <text x="54" y="374" class="small">0%</text>
+  <text x="47" y="304" class="small">25%</text>
+  <text x="47" y="234" class="small">50%</text>
+  <text x="47" y="164" class="small">75%</text>
+  <text x="40" y="94" class="small">100%</text>
+
+  <line x1="90" y1="230" x2="920" y2="230" class="chance" />
+  <text x="926" y="234" class="small">chance</text>
+
+  <rect x="120" y="230.4545" width="70" height="139.5455" class="linear" />
+  <text x="155" y="390" text-anchor="middle" class="label">Lin Raw</text>
+  <text x="155" y="220" text-anchor="middle" class="small">49.84%</text>
+
+  <rect x="220" y="230.525" width="70" height="139.475" class="linear" />
+  <text x="255" y="390" text-anchor="middle" class="label">Lin Circ</text>
+  <text x="255" y="220" text-anchor="middle" class="small">49.81%</text>
+
+  <rect x="320" y="230.623" width="70" height="139.377" class="linear" />
+  <text x="355" y="390" text-anchor="middle" class="label">Lin 1H</text>
+  <text x="355" y="220" text-anchor="middle" class="small">49.78%</text>
+
+  <rect x="420" y="229.524" width="70" height="140.476" class="mlp" />
+  <text x="455" y="390" text-anchor="middle" class="label">MLP Circ</text>
+  <text x="455" y="220" text-anchor="middle" class="small">50.17%</text>
+
+  <rect x="520" y="90.336" width="70" height="279.664" class="mlp" />
+  <text x="555" y="390" text-anchor="middle" class="label">MLP 1H</text>
+  <text x="555" y="80" text-anchor="middle" class="small">99.88%</text>
+
+  <rect x="620" y="230.427" width="70" height="139.573" class="transformer" />
+  <text x="655" y="390" text-anchor="middle" class="label">Tx D1</text>
+  <text x="655" y="220" text-anchor="middle" class="small">49.85%</text>
+
+  <rect x="720" y="231.498" width="70" height="138.502" class="transformer" />
+  <text x="755" y="390" text-anchor="middle" class="label">Tx D2</text>
+  <text x="755" y="220" text-anchor="middle" class="small">49.47%</text>
+
+  <rect x="820" y="230.084" width="70" height="139.916" class="transformer" />
+  <text x="855" y="390" text-anchor="middle" class="label">Tx D4</text>
+  <text x="855" y="220" text-anchor="middle" class="small">49.97%</text>
+
+  <rect x="600" y="28" width="14" height="14" class="linear" />
+  <text x="620" y="40" class="small">linear</text>
+  <rect x="690" y="28" width="14" height="14" class="mlp" />
+  <text x="710" y="40" class="small">mlp</text>
+  <rect x="770" y="28" width="14" height="14" class="transformer" />
+  <text x="790" y="40" class="small">transformer</text>
+</svg>

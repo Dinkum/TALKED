@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480">
+<rect width="100%" height="100%" fill="#fffdf7"/>
+<text x="24" y="227.0" font-size="13" font-family="Helvetica, Arial, sans-serif" fill="#374151" transform="rotate(-90 24 227.0)">accuracy</text>
+<line x1="84" y1="74" x2="84" y2="380" stroke="#111827" stroke-width="1.5"/>
+<line x1="84" y1="380" x2="920" y2="380" stroke="#111827" stroke-width="1.5"/>
+<line x1="84" y1="380.00" x2="920" y2="380.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="384.00" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">0.0%</text>
+<line x1="84" y1="303.50" x2="920" y2="303.50" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="307.50" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">25.0%</text>
+<line x1="84" y1="227.00" x2="920" y2="227.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="231.00" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">50.0%</text>
+<line x1="84" y1="150.50" x2="920" y2="150.50" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="154.50" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">75.0%</text>
+<line x1="84" y1="74.00" x2="920" y2="74.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="78.00" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">100.0%</text>
+<rect x="101.65" y="227.68" width="57.59" height="152.32" rx="8" fill="#0f766e"/>
+<text x="130.44" y="217.68" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">49.8%</text>
+<text x="130.44" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-101:pooled</text>
+<rect x="194.54" y="224.00" width="57.59" height="156.00" rx="8" fill="#2563eb"/>
+<text x="223.33" y="214.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">51.0%</text>
+<text x="223.33" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-101:normalized</text>
+<rect x="287.43" y="74.21" width="57.59" height="305.79" rx="8" fill="#d97706"/>
+<text x="316.22" y="64.21" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">99.9%</text>
+<text x="316.22" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-101:activated</text>
+<rect x="380.32" y="226.99" width="57.59" height="153.01" rx="8" fill="#dc2626"/>
+<text x="409.11" y="216.99" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">50.0%</text>
+<text x="409.11" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-102:pooled</text>
+<rect x="473.20" y="226.07" width="57.59" height="153.93" rx="8" fill="#7c3aed"/>
+<text x="502.00" y="216.07" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">50.3%</text>
+<text x="502.00" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-102:normalized</text>
+<rect x="566.09" y="74.20" width="57.59" height="305.80" rx="8" fill="#0f766e"/>
+<text x="594.89" y="64.20" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">99.9%</text>
+<text x="594.89" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-102:activated</text>
+<rect x="658.98" y="226.52" width="57.59" height="153.48" rx="8" fill="#2563eb"/>
+<text x="687.78" y="216.52" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">50.2%</text>
+<text x="687.78" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-103:pooled</text>
+<rect x="751.87" y="227.34" width="57.59" height="152.66" rx="8" fill="#d97706"/>
+<text x="780.67" y="217.34" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">49.9%</text>
+<text x="780.67" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-103:normalized</text>
+<rect x="844.76" y="75.05" width="57.59" height="304.95" rx="8" fill="#dc2626"/>
+<text x="873.56" y="65.05" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">99.7%</text>
+<text x="873.56" y="402.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">key-103:activated</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+<rect width="100%" height="100%" fill="#fffdf8"/>
+<line x1="90" y1="430.0" x2="860" y2="430.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="78" y="434.0" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#6b7280">0%</text>
+<line x1="90" y1="337.5" x2="860" y2="337.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="78" y="341.5" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#6b7280">25%</text>
+<line x1="90" y1="245.0" x2="860" y2="245.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="78" y="249.0" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#6b7280">50%</text>
+<line x1="90" y1="152.5" x2="860" y2="152.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="78" y="156.5" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#6b7280">75%</text>
+<line x1="90" y1="60.0" x2="860" y2="60.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="78" y="64.0" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#6b7280">100%</text>
+<line x1="90" y1="60" x2="90" y2="430" stroke="#111827" stroke-width="1.5"/>
+<line x1="90" y1="430" x2="860" y2="430" stroke="#111827" stroke-width="1.5"/>
+<line x1="90.0" y1="430" x2="90.0" y2="436" stroke="#111827" stroke-width="1"/>
+<text x="90.0" y="454" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">200</text>
+<line x1="346.7" y1="430" x2="346.7" y2="436" stroke="#111827" stroke-width="1"/>
+<text x="346.7" y="454" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">2000</text>
+<line x1="603.3" y1="430" x2="603.3" y2="436" stroke="#111827" stroke-width="1"/>
+<text x="603.3" y="454" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">20000</text>
+<line x1="860.0" y1="430" x2="860.0" y2="436" stroke="#111827" stroke-width="1"/>
+<text x="860.0" y="454" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">200000</text>
+<text x="450.0" y="492" text-anchor="middle" font-size="13" font-family="Helvetica, Arial, sans-serif" fill="#374151">oracle query budget</text>
+<text x="22" y="260.0" text-anchor="middle" transform="rotate(-90 22 260.0)" font-size="13" font-family="Helvetica, Arial, sans-serif" fill="#374151">accuracy</text>
+<polyline fill="none" stroke="#0f766e" stroke-width="3" points="90.0,244.2 346.7,246.2 603.3,243.4 860.0,60.3"/>
+<circle cx="90.0" cy="244.2" r="4.5" fill="#0f766e"/>
+<circle cx="346.7" cy="246.2" r="4.5" fill="#0f766e"/>
+<circle cx="603.3" cy="243.4" r="4.5" fill="#0f766e"/>
+<circle cx="860.0" cy="60.3" r="4.5" fill="#0f766e"/>
+<text x="870.0" y="64.3" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#0f766e">Surrogate true test</text>
+<polyline fill="none" stroke="#b45309" stroke-width="3" points="90.0,244.0 346.7,246.0 603.3,243.2 860.0,60.3"/>
+<circle cx="90.0" cy="244.0" r="4.5" fill="#b45309"/>
+<circle cx="346.7" cy="246.0" r="4.5" fill="#b45309"/>
+<circle cx="603.3" cy="243.2" r="4.5" fill="#b45309"/>
+<circle cx="860.0" cy="60.3" r="4.5" fill="#b45309"/>
+<text x="870.0" y="64.3" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#b45309">Oracle agreement</text>
+</svg>

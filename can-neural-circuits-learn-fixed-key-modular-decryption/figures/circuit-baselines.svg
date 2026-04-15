@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
+  <title id="title">Clean n=4 circuit baseline test accuracy</title>
+  <desc id="desc">Comparison of additive, DeepSets, one-hot MLP, and hybrid modulo transformer test accuracy on clean n=4.</desc>
+  <style>
+    text { font-family: Helvetica, Arial, sans-serif; fill: #15202b; }
+    .axis { stroke: #7d8790; stroke-width: 1; }
+    .grid { stroke: #d6dce3; stroke-width: 1; }
+    .chance { stroke: #b42318; stroke-width: 2; stroke-dasharray: 6 6; }
+    .additive { fill: #9fb8d9; }
+    .deepsets { fill: #15803d; }
+    .mlp { fill: #2f6fed; }
+    .transformer { fill: #f28c28; }
+    .title { font-size: 20px; font-weight: 700; }
+    .small { font-size: 11px; fill: #4e5d6c; }
+    .label { font-size: 12px; }
+  </style>
+  <rect width="920" height="420" fill="#fcfcfb" />
+  <line x1="90" y1="350" x2="880" y2="350" class="axis" />
+  <line x1="90" y1="80" x2="90" y2="350" class="axis" />
+
+  <line x1="90" y1="350" x2="880" y2="350" class="grid" />
+  <line x1="90" y1="282.5" x2="880" y2="282.5" class="grid" />
+  <line x1="90" y1="215" x2="880" y2="215" class="grid" />
+  <line x1="90" y1="147.5" x2="880" y2="147.5" class="grid" />
+  <line x1="90" y1="80" x2="880" y2="80" class="grid" />
+
+  <text x="54" y="354" class="small">0%</text>
+  <text x="47" y="286.5" class="small">25%</text>
+  <text x="47" y="219" class="small">50%</text>
+  <text x="47" y="151.5" class="small">75%</text>
+  <text x="40" y="84" class="small">100%</text>
+
+  <line x1="90" y1="215" x2="880" y2="215" class="chance" />
+  <text x="886" y="219" class="small">chance</text>
+
+  <rect x="140" y="215.385" width="110" height="134.615" class="additive" />
+  <text x="195" y="372" text-anchor="middle" class="label">Additive</text>
+  <text x="195" y="205" text-anchor="middle" class="small">49.86%</text>
+
+  <rect x="315" y="80.155" width="110" height="269.845" class="deepsets" />
+  <text x="370" y="372" text-anchor="middle" class="label">DeepSets</text>
+  <text x="370" y="70" text-anchor="middle" class="small">99.94%</text>
+
+  <rect x="490" y="80.324" width="110" height="269.676" class="mlp" />
+  <text x="545" y="372" text-anchor="middle" class="label">MLP 1H</text>
+  <text x="545" y="70" text-anchor="middle" class="small">99.88%</text>
+
+  <rect x="665" y="215.546" width="110" height="134.454" class="transformer" />
+  <text x="720" y="372" text-anchor="middle" class="label">Hybrid Tx</text>
+  <text x="720" y="205" text-anchor="middle" class="small">49.80%</text>
+
+  <rect x="580" y="28" width="14" height="14" class="additive" />
+  <text x="600" y="40" class="small">additive</text>
+  <rect x="670" y="28" width="14" height="14" class="deepsets" />
+  <text x="690" y="40" class="small">deepsets</text>
+  <rect x="760" y="28" width="14" height="14" class="transformer" />
+  <text x="780" y="40" class="small">attention family</text>
+</svg>

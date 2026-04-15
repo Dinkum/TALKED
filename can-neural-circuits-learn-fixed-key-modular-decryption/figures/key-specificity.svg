@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="470" viewBox="0 0 860 470" role="img" aria-labelledby="title desc">
+  <title id="title">DeepSets key-specificity transfer matrix</title>
+  <desc id="desc">Heatmap showing that each DeepSets model transfers well only to its own key and stays near chance on other keys.</desc>
+  <style>
+    text { font-family: Helvetica, Arial, sans-serif; fill: #15202b; }
+    .title { font-size: 20px; font-weight: 700; }
+    .small { font-size: 12px; fill: #4f5d6b; }
+    .label { font-size: 13px; }
+    .border { stroke: #d6dde5; stroke-width: 1; }
+  </style>
+  <rect width="860" height="470" fill="#fcfcfb" />
+  <text x="220" y="98" class="label">Target key</text>
+  <text x="60" y="220" class="label" transform="rotate(-90 60 220)">Source key</text>
+
+  <text x="300" y="130" text-anchor="middle" class="label">101</text>
+  <text x="430" y="130" text-anchor="middle" class="label">102</text>
+  <text x="560" y="130" text-anchor="middle" class="label">103</text>
+
+  <text x="190" y="210" text-anchor="middle" class="label">101</text>
+  <text x="190" y="290" text-anchor="middle" class="label">102</text>
+  <text x="190" y="370" text-anchor="middle" class="label">103</text>
+
+  <rect x="240" y="160" width="120" height="80" fill="#117a3f" class="border" />
+  <text x="300" y="205" text-anchor="middle" fill="#ffffff" class="label">99.93%</text>
+
+  <rect x="370" y="160" width="120" height="80" fill="#f6ddaa" class="border" />
+  <text x="430" y="205" text-anchor="middle" class="label">50.03%</text>
+
+  <rect x="500" y="160" width="120" height="80" fill="#f6dcaa" class="border" />
+  <text x="560" y="205" text-anchor="middle" class="label">50.07%</text>
+
+  <rect x="240" y="240" width="120" height="80" fill="#f6deab" class="border" />
+  <text x="300" y="285" text-anchor="middle" class="label">49.93%</text>
+
+  <rect x="370" y="240" width="120" height="80" fill="#117a3f" class="border" />
+  <text x="430" y="285" text-anchor="middle" fill="#ffffff" class="label">99.94%</text>
+
+  <rect x="500" y="240" width="120" height="80" fill="#f5d8a4" class="border" />
+  <text x="560" y="285" text-anchor="middle" class="label">50.68%</text>
+
+  <rect x="240" y="320" width="120" height="80" fill="#f6dfac" class="border" />
+  <text x="300" y="365" text-anchor="middle" class="label">49.80%</text>
+
+  <rect x="370" y="320" width="120" height="80" fill="#f5dba8" class="border" />
+  <text x="430" y="365" text-anchor="middle" class="label">50.36%</text>
+
+  <rect x="500" y="320" width="120" height="80" fill="#117a3f" class="border" />
+  <text x="560" y="365" text-anchor="middle" fill="#ffffff" class="label">99.99%</text>
+
+  <rect x="680" y="150" width="26" height="250" fill="url(#scale)" class="border" />
+  <defs>
+    <linearGradient id="scale" x1="0" x2="0" y1="1" y2="0">
+      <stop offset="0%" stop-color="#f6e3b5" />
+      <stop offset="50%" stop-color="#f3c66b" />
+      <stop offset="100%" stop-color="#117a3f" />
+    </linearGradient>
+  </defs>
+  <text x="716" y="404" class="small">50%</text>
+  <text x="716" y="280" class="small">75%</text>
+  <text x="716" y="156" class="small">100%</text>
+</svg>
