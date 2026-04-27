@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
 <rect width="100%" height="100%" fill="#fffdf7"/>
 <text x="84" y="34" font-size="26" font-family="Georgia, serif" fill="#111827">The Late Code Is Privileged, Not Exclusive</text>
-<text x="84" y="56" font-size="14" font-family="Helvetica, Arial, sans-serif" fill="#4b5563">Joint-probe keep, remove, and complement readout across subspace dimensions</text>
+<text x="84" y="56" font-size="14" font-family="Helvetica, Arial, sans-serif" fill="#4b5563"></text>
 <text x="24" y="263.0" font-size="13" font-family="Helvetica, Arial, sans-serif" fill="#374151" transform="rotate(-90 24 263.0)">accuracy</text>
 <line x1="84" y1="92" x2="84" y2="434" stroke="#111827" stroke-width="1.5"/>
 <line x1="84" y1="434" x2="920" y2="434" stroke="#111827" stroke-width="1.5"/>

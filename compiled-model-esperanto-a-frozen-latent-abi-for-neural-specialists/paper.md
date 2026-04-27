@@ -117,6 +117,8 @@ The cross-domain result could still be too narrow. Perhaps the dot-product retri
 
 We therefore train a candidate-wise retrieval specialist. Instead of one shared dot-product trunk, it uses candidate-local query/candidate/product/score features, candidate ID embeddings, a candidate-local MLP, and weighted/mean/max pooling. The task and labels stay the same. The checksum ABI stays frozen. The new retrieval model again gets only a local compiler into the packet.
 
+\newpage
+
 ![Cross-architecture transfer into the same ABI. Candidate-wise retrieval specialists compile into the frozen checksum-trained packet space.](./figures/figure_9_cross_architecture.svg){ width=100% }
 
 The candidate-wise specialists learn the retrieval task strongly: state 97.5% / 97.3% and margin 90.3% / 90.0% across two seeds. After local compilation into the same checksum ABI, frozen decoders recover:

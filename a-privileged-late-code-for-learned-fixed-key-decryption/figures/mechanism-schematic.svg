@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="420" viewBox="0 0 1080 420">
-  <rect width="1080" height="420" fill="#fbfaf7"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="320" viewBox="0 0 1080 320">
+  <rect width="1080" height="320" fill="#fbfaf7"/>
   <text x="54" y="56" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="750" fill="#202124">Mechanistic Claim: A Privileged Late Code, Not a Bottleneck</text>
-  <text x="54" y="86" font-family="Inter, Arial, sans-serif" font-size="15" fill="#667085">The final activated state contains a compact causal carrier for decryptor state, embedded in a redundant representation.</text>
 
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
@@ -10,31 +9,22 @@
   </defs>
 
   <rect x="58" y="150" width="170" height="82" rx="6" fill="#e8f1ff" stroke="#b8cffd"/>
-  <text x="143" y="184" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#202124">ciphertext</text>
-  <text x="143" y="208" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#667085">(u, v)</text>
+  <text x="143" y="197" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#202124">ciphertext</text>
 
   <rect x="286" y="150" width="188" height="82" rx="6" fill="#e4f7f4" stroke="#a8d9d2"/>
-  <text x="380" y="184" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#202124">DeepSets winner</text>
-  <text x="380" y="208" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#667085">fixed-key decryptor</text>
+  <text x="380" y="197" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#202124">DeepSets winner</text>
 
   <rect x="540" y="128" width="208" height="126" rx="8" fill="#fff4d8" stroke="#e8c46f"/>
-  <text x="644" y="166" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="750" fill="#202124">final activated state</text>
-  <text x="644" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#667085">late representation</text>
-  <text x="644" y="220" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#667085">probe-readable d and beta</text>
+  <text x="644" y="198" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="750" fill="#202124">final activated state</text>
 
   <rect x="828" y="102" width="188" height="76" rx="7" fill="#f0e8ff" stroke="#ccb8ff"/>
-  <text x="922" y="132" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="750" fill="#202124">privileged code</text>
-  <text x="922" y="154" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#667085">1D/2D probe basis</text>
+  <text x="922" y="145" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="750" fill="#202124">privileged code</text>
 
   <rect x="828" y="218" width="188" height="76" rx="7" fill="#ffe8ee" stroke="#f2b5c5"/>
-  <text x="922" y="248" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="750" fill="#202124">redundant complement</text>
-  <text x="922" y="270" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#667085">still linearly readable</text>
+  <text x="922" y="262" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="750" fill="#202124">redundant complement</text>
 
   <line x1="228" y1="191" x2="286" y2="191" stroke="#202124" stroke-width="2" marker-end="url(#arrow)"/>
   <line x1="474" y1="191" x2="540" y2="191" stroke="#202124" stroke-width="2" marker-end="url(#arrow)"/>
   <line x1="748" y1="174" x2="828" y2="140" stroke="#202124" stroke-width="2" marker-end="url(#arrow)"/>
   <line x1="748" y1="210" x2="828" y2="256" stroke="#202124" stroke-width="2" marker-end="url(#arrow)"/>
-
-  <rect x="88" y="326" width="904" height="58" rx="8" fill="#ffffff" stroke="#ddd9ce"/>
-  <text x="116" y="361" font-family="Inter, Arial, sans-serif" font-size="15" fill="#667085">Evidence chain: late localization, probe-aligned compactness, donor-directed patching, complement readout, and same-key seed stability.</text>
 </svg>
