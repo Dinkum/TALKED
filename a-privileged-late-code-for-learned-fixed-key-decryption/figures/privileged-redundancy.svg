@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+<rect width="100%" height="100%" fill="#fffdf7"/>
+<text x="84" y="34" font-size="26" font-family="Georgia, serif" fill="#111827">The Late Code Is Privileged, Not Exclusive</text>
+<text x="84" y="56" font-size="14" font-family="Helvetica, Arial, sans-serif" fill="#4b5563">Joint-probe keep, remove, and complement readout across subspace dimensions</text>
+<text x="24" y="263.0" font-size="13" font-family="Helvetica, Arial, sans-serif" fill="#374151" transform="rotate(-90 24 263.0)">accuracy</text>
+<line x1="84" y1="92" x2="84" y2="434" stroke="#111827" stroke-width="1.5"/>
+<line x1="84" y1="434" x2="920" y2="434" stroke="#111827" stroke-width="1.5"/>
+<line x1="84" y1="434.00" x2="920" y2="434.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="438.00" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">0.0%</text>
+<line x1="84" y1="348.50" x2="920" y2="348.50" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="352.50" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">25.0%</text>
+<line x1="84" y1="263.00" x2="920" y2="263.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="267.00" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">50.0%</text>
+<line x1="84" y1="177.50" x2="920" y2="177.50" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="181.50" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">75.0%</text>
+<line x1="84" y1="92.00" x2="920" y2="92.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="74" y="96.00" text-anchor="end" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">100.0%</text>
+<line x1="84.00" y1="92" x2="84.00" y2="434" stroke="#f3f4f6" stroke-width="1"/>
+<text x="84.00" y="458.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">1</text>
+<line x1="203.43" y1="92" x2="203.43" y2="434" stroke="#f3f4f6" stroke-width="1"/>
+<text x="203.43" y="458.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">2</text>
+<line x1="442.29" y1="92" x2="442.29" y2="434" stroke="#f3f4f6" stroke-width="1"/>
+<text x="442.29" y="458.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">4</text>
+<line x1="920.00" y1="92" x2="920.00" y2="434" stroke="#f3f4f6" stroke-width="1"/>
+<text x="920.00" y="458.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">8</text>
+<circle cx="84.00" cy="92.35" r="4" fill="#2563eb"/>
+<circle cx="203.43" cy="92.22" r="4" fill="#2563eb"/>
+<circle cx="442.29" cy="92.24" r="4" fill="#2563eb"/>
+<circle cx="920.00" cy="92.24" r="4" fill="#2563eb"/>
+<polyline fill="none" stroke="#2563eb" stroke-width="3" points="84.00,92.35 203.43,92.22 442.29,92.24 920.00,92.24"/>
+<rect x="84" y="70" width="18" height="10" rx="3" fill="#2563eb"/>
+<text x="110" y="79" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">keep only</text>
+<circle cx="84.00" cy="106.24" r="4" fill="#dc2626"/>
+<circle cx="203.43" cy="127.32" r="4" fill="#dc2626"/>
+<circle cx="442.29" cy="124.93" r="4" fill="#dc2626"/>
+<circle cx="920.00" cy="125.40" r="4" fill="#dc2626"/>
+<polyline fill="none" stroke="#dc2626" stroke-width="3" points="84.00,106.24 203.43,127.32 442.29,124.93 920.00,125.40"/>
+<rect x="202" y="70" width="18" height="10" rx="3" fill="#dc2626"/>
+<text x="228" y="79" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">remove only</text>
+<circle cx="84.00" cy="92.40" r="4" fill="#0f766e"/>
+<circle cx="203.43" cy="92.41" r="4" fill="#0f766e"/>
+<circle cx="442.29" cy="92.46" r="4" fill="#0f766e"/>
+<circle cx="920.00" cy="92.46" r="4" fill="#0f766e"/>
+<polyline fill="none" stroke="#0f766e" stroke-width="3" points="84.00,92.40 203.43,92.41 442.29,92.46 920.00,92.46"/>
+<rect x="320" y="70" width="18" height="10" rx="3" fill="#0f766e"/>
+<text x="346" y="79" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#111827">complement beta linear</text>
+</svg>

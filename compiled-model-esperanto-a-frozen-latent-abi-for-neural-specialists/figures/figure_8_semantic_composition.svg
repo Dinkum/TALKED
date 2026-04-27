@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="570" viewBox="0 0 1080 570">
+<rect width="1080" height="570" fill="#fbfaf7"/>
+<text x="48.0" y="58.0" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="750" fill="#202124" text-anchor="start">Decoded Packet Semantics Compose Across Domains</text>
+<text x="48.0" y="86.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="400" fill="#6b7280" text-anchor="start">Composition heads train on checksum-side decoded packet summaries and transfer to retrieval</text>
+<text x="336.0" y="134.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">seed A</text>
+<text x="650.0" y="134.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">seed B</text>
+<text x="920.0" y="134.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">real - shuffled</text>
+<text x="62.0" y="204.0" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="750" fill="#202124" text-anchor="start">Pair relation</text>
+<rect x="190.0" y="176.0" width="240.0" height="24.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="190.0" y="176.0" width="128.2" height="24.0" rx="5.0" fill="#2563eb" stroke="none" />
+<text x="440.0" y="196.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">53.4%</text>
+<rect x="190.0" y="210.0" width="240.0" height="15.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="190.0" y="210.0" width="84.0" height="15.0" rx="5.0" fill="#b9b5aa" stroke="none" />
+<text x="440.0" y="221.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">35.0%</text>
+<rect x="504.0" y="176.0" width="240.0" height="24.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="504.0" y="176.0" width="118.1" height="24.0" rx="5.0" fill="#2563eb" stroke="none" />
+<text x="754.0" y="196.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">49.2%</text>
+<rect x="504.0" y="210.0" width="240.0" height="15.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="504.0" y="210.0" width="73.8" height="15.0" rx="5.0" fill="#b9b5aa" stroke="none" />
+<text x="754.0" y="221.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">30.8%</text>
+<text x="920.0" y="204.0" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="750" fill="#2563eb" text-anchor="middle">+18.4 / +18.5 pts</text>
+<text x="62.0" y="340.0" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="750" fill="#202124" text-anchor="start">Set/ranking</text>
+<rect x="190.0" y="312.0" width="240.0" height="24.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="190.0" y="312.0" width="132.7" height="24.0" rx="5.0" fill="#0f766e" stroke="none" />
+<text x="440.0" y="332.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">55.3%</text>
+<rect x="190.0" y="346.0" width="240.0" height="15.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="190.0" y="346.0" width="114.9" height="15.0" rx="5.0" fill="#b9b5aa" stroke="none" />
+<text x="440.0" y="357.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">47.9%</text>
+<rect x="504.0" y="312.0" width="240.0" height="24.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="504.0" y="312.0" width="113.2" height="24.0" rx="5.0" fill="#0f766e" stroke="none" />
+<text x="754.0" y="332.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">47.2%</text>
+<rect x="504.0" y="346.0" width="240.0" height="15.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="504.0" y="346.0" width="91.3" height="15.0" rx="5.0" fill="#b9b5aa" stroke="none" />
+<text x="754.0" y="357.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">38.0%</text>
+<text x="920.0" y="340.0" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="750" fill="#0f766e" text-anchor="middle">+7.4 / +9.1 pts</text>
+<line x1="250.0" y1="152.0" x2="250.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="250.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">25</text>
+<line x1="564.0" y1="152.0" x2="564.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="564.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">25</text>
+<line x1="310.0" y1="152.0" x2="310.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="310.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">50</text>
+<line x1="624.0" y1="152.0" x2="624.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="624.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">50</text>
+<line x1="370.0" y1="152.0" x2="370.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="370.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">75</text>
+<line x1="684.0" y1="152.0" x2="684.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="684.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">75</text>
+<line x1="430.0" y1="152.0" x2="430.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="430.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">100</text>
+<line x1="744.0" y1="152.0" x2="744.0" y2="446.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<text x="744.0" y="142.0" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="400" fill="#6b7280" text-anchor="middle">100</text>
+<rect x="78.0" y="464.0" width="910.0" height="66.0" rx="8.0" fill="#ffffff" stroke="#ddd9ce" />
+<text x="106.0" y="496.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="400" fill="#6b7280" text-anchor="start">Decoded ABI semantics improve relation/ranking transfer; composition still trails single-example transfer.</text>
+</svg>

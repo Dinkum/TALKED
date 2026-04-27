@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="640" viewBox="0 0 1080 640">
+<rect width="1080" height="640" fill="#fbfaf7"/>
+<text x="48.0" y="58.0" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="750" fill="#202124" text-anchor="start">Specialist Quality Gate</text>
+<text x="48.0" y="86.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="400" fill="#6b7280" text-anchor="start">The retrieval domain is a fair ABI test only after the specialist itself learns the ranking task</text>
+<text x="452.0" y="126.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">state/class</text>
+<text x="734.0" y="126.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">margin/confidence</text>
+<text x="60.0" y="180.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="650" fill="#202124" text-anchor="start">first retrieval MLP</text>
+<rect x="282.0" y="156.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="282.0" y="156.0" width="77.2" height="22.0" rx="5.0" fill="#be123c" stroke="none" />
+<text x="502.0" y="174.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">36.7%</text>
+<rect x="564.0" y="156.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="564.0" y="156.0" width="94.2" height="22.0" rx="5.0" fill="#be123c" stroke="none" />
+<text x="784.0" y="174.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">44.9%</text>
+<text x="60.0" y="254.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="650" fill="#202124" text-anchor="start">dot-product retrieval</text>
+<rect x="282.0" y="230.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="282.0" y="230.0" width="202.5" height="22.0" rx="5.0" fill="#0f766e" stroke="none" />
+<text x="502.0" y="248.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">96.4%</text>
+<rect x="564.0" y="230.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="564.0" y="230.0" width="185.2" height="22.0" rx="5.0" fill="#0f766e" stroke="none" />
+<text x="784.0" y="248.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">88.2%</text>
+<text x="60.0" y="328.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="650" fill="#202124" text-anchor="start">canonical retrieval</text>
+<rect x="282.0" y="304.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="282.0" y="304.0" width="203.0" height="22.0" rx="5.0" fill="#2563eb" stroke="none" />
+<text x="502.0" y="322.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">96.7%</text>
+<rect x="564.0" y="304.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="564.0" y="304.0" width="192.7" height="22.0" rx="5.0" fill="#2563eb" stroke="none" />
+<text x="784.0" y="322.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">91.8%</text>
+<text x="60.0" y="402.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="650" fill="#202124" text-anchor="start">checksum source</text>
+<rect x="282.0" y="378.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="282.0" y="378.0" width="192.0" height="22.0" rx="5.0" fill="#c47f00" stroke="none" />
+<text x="502.0" y="396.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">91.4%</text>
+<rect x="564.0" y="378.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="564.0" y="378.0" width="195.6" height="22.0" rx="5.0" fill="#c47f00" stroke="none" />
+<text x="784.0" y="396.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">93.2%</text>
+<text x="60.0" y="476.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="650" fill="#202124" text-anchor="start">checksum held-out</text>
+<rect x="282.0" y="452.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="282.0" y="452.0" width="200.6" height="22.0" rx="5.0" fill="#7c3aed" stroke="none" />
+<text x="502.0" y="470.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">95.5%</text>
+<rect x="564.0" y="452.0" width="210.0" height="22.0" rx="5.0" fill="#ece9df" stroke="none" />
+<rect x="564.0" y="452.0" width="197.1" height="22.0" rx="5.0" fill="#7c3aed" stroke="none" />
+<text x="784.0" y="470.0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="400" fill="#202124" text-anchor="start">93.9%</text>
+<line x1="334.5" y1="138.0" x2="334.5" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<line x1="616.5" y1="138.0" x2="616.5" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<line x1="387.0" y1="138.0" x2="387.0" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<line x1="669.0" y1="138.0" x2="669.0" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<line x1="439.5" y1="138.0" x2="439.5" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<line x1="721.5" y1="138.0" x2="721.5" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<line x1="492.0" y1="138.0" x2="492.0" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<line x1="774.0" y1="138.0" x2="774.0" y2="511.0" stroke="#d8d8d0" stroke-width="1.0" stroke-linecap="round" stroke-dasharray="4 6"/>
+<rect x="80.0" y="550.0" width="900.0" height="56.0" rx="8.0" fill="#ffffff" stroke="#ddd9ce" />
+<text x="106.0" y="584.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" fill="#202124" text-anchor="start">Use:</text>
+<text x="152.0" y="584.0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="400" fill="#6b7280" text-anchor="start">explains why the first retrieval run was diagnostic rather than a negative result</text>
+</svg>
