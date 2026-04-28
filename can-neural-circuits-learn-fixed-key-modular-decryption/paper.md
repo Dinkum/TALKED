@@ -7,11 +7,11 @@ date: "2026-04-10"
 
 # Abstract
 
-Can a small neural network learn to decrypt for one fixed secret key just from examples, and if it can, what exactly leaks once the model works? We study this question in a controlled Learning With Errors (LWE)-style benchmark where the key, public matrix, and encryption rule are fixed, the data are clean, and the only learning problem is to map ciphertexts back to the hidden bit. The benchmark is deliberately narrow. We are not testing broad cryptographic competence. We are testing whether a model can internalize one keyed modular circuit.
+Can a small neural network learn to decrypt for one fixed secret key just from examples, and if it can, what exactly leaks once the model works? We study this question in a controlled Learning With Errors (LWE)-style benchmark where the key, public matrix, and encryption rule are fixed, the data are clean, and the only learning problem is to map ciphertexts back to the hidden bit. The benchmark is tiny by design: tiny regimes are where we can name the mechanism. We are testing whether a model can internalize one keyed modular circuit.
 
 The answer is yes, but only for the right circuit family. In our main clean regime, `n=4, q=17`, small attention-based models fail, including tokenized decoder-style transformers, direct transformer classifiers, modulo-aware one-hot transformer classifiers, and a hybrid transformer with a learned modulo frontend. In contrast, a one-hot MLP and a DeepSets-style model with nonlinear local lifts followed by sum aggregation solve the task almost perfectly. An additive residue-table model fails, so the winner is not just a linear sum of per-residue lookups.
 
-Once the task is solved, the leakage story is asymmetric. The winning DeepSets family is strongly key-bound: self-key accuracy is near-perfect while cross-key transfer collapses to chance. Black-box function stealing is delayed rather than instant: surrogates stay at chance through `20,000` random oracle queries, then jump to `99.9%` agreement at `200,000`. A stronger manifest-backed boundary attack consistently collapses the planted secret to rank `1`, but still leaves large ambiguity classes rather than a unique literal key. Inside a trained winner, the penultimate activated state exposes the latent decryptor almost linearly: simple probes recover the decryptor value $d = v - \langle s, u \rangle \bmod q$ and the output bit with about `99.5%-99.9%` accuracy. Across a zoo of independently trained winners, raw weights, fixed-query activation signatures, and fixed-query `d`-transcript signatures still do not yield usable literal secret recovery. Low-budget structured surrogate stealing also stays at chance, and a low-rank activated-state patch that can edit one secret does not retarget to a fresh unrelated key. Finally, the positive regime is narrow but not completely fragile: the winner remains near-saturated across moderate noise levels at `q=17`, while a small `q`/width boundary sweep shows that wider DeepSets models fully rescue `q=23` but only partially rescue `q=31`.
+Once the task is solved, the leakage story is asymmetric. The winning DeepSets family is strongly key-bound: self-key accuracy is near-perfect while cross-key transfer collapses to chance. Black-box function stealing is delayed rather than instant, with surrogates staying at chance through `20,000` random oracle queries before jumping at `200,000`. A stronger manifest-backed boundary attack consistently collapses the planted secret to rank `1`, but still leaves large ambiguity classes rather than a unique literal key. Inside a trained winner, the penultimate activated state exposes the latent decryptor almost linearly: simple probes recover the decryptor value $d = v - \langle s, u \rangle \bmod q$ and the output bit with about `99.5%-99.9%` accuracy. Across a zoo of independently trained winners, raw weights, fixed-query activation signatures, and fixed-query `d`-transcript signatures still do not yield usable literal secret recovery. Low-budget structured surrogate stealing also stays at chance, and a low-rank activated-state patch that can edit one secret does not retarget to a fresh unrelated key. Finally, the positive regime is bounded but structured: the winner remains near-saturated across moderate noise levels at `q=17`, while a small `q`/width boundary sweep shows that wider DeepSets models fully rescue `q=23` but only partially rescue `q=31`.
 
 Taken together, these results point to a cleaner conclusion than the original “transformers hiding keys” story. Fixed-key modular decryption is learnable, but success is architecture-dependent, the winning computation is closer to a nonlinear additive set circuit than to small attention, and capability leakage plus late-state leakage are much easier than literal secret extraction.
 
@@ -23,7 +23,7 @@ That question sits at the intersection of a few different instincts. One instinc
 
 We study the smallest version of that problem that still produces meaningful model and extraction behavior. We generate one small LWE-style instance, keep the secret key and public matrix fixed, sample many fresh ciphertexts from that instance, and train different model families to predict the hidden bit from ciphertext coordinates alone. The model never sees the planted key directly. It only sees example pairs.
 
-This is not a proposal for a secure cryptographic primitive. It is a benchmark for learnability and extractability of keyed modular computation. That difference matters. We are not asking whether a model can replace public-key cryptography in the wild. We are asking what kind of neural circuit, if any, can internalize one fixed-key modular decryptor, and what traces of that keyed computation remain accessible after training.
+This is a benchmark for learnability and extractability of keyed modular computation, not a proposal for a secure cryptographic primitive. The point is mechanistic: what kind of neural circuit can internalize one fixed-key modular decryptor, and what traces of that keyed computation remain accessible after training?
 
 The resulting picture is sharp:
 
@@ -31,7 +31,7 @@ The resulting picture is sharp:
 - The winning family is not small attention. It is a nonlinear local-lift plus sum-aggregation circuit.
 - The learned solution is strongly key-specific.
 - Leakage is asymmetric: late internal states expose decryptor-equivalent information more readily than literal key recovery.
-- The whole phenomenon is brittle; a modest move in modulus already changes the picture.
+- The phenomenon has a real boundary; a modest move in modulus already changes the picture.
 
 For a non-specialist, the simplest summary is this: some small neural nets can indeed learn a secret-bound decryptor, but the successful model here looks more like a structured arithmetic circuit than like a small attention model. And once it works, the easiest thing to steal is not necessarily the exact key, but the model's ability to behave like the decryptor.
 
@@ -222,7 +222,7 @@ Each model solves its own key almost perfectly and collapses to chance on other 
 
 ## 4.4 The Positive Regime Is Narrow, Not Broad
 
-The clean `n=4, q=17` success is real, but it is not broad modular competence.
+The clean `n=4, q=17` success is real, and the boundary sweep makes the point sharper.
 
 We ran a compact boundary sweep holding `n=4`, `m=32`, and `sigma=0` fixed while varying only the modulus `q` and DeepSets width.
 
@@ -237,7 +237,7 @@ The sweep shows:
 - `q=31`, width `128`: `50.33%`
 - `q=31`, width `256`: `74.43%`
 
-All three settings verified cleanly with `0 / 5000` scheme failures. So this is not a data-quality cliff. It is a learnability cliff. More width fully rescues `q=23`, but only partially rescues `q=31`. The positive region is therefore narrow and architecture-sensitive rather than smooth and generic.
+All three settings verified cleanly with `0 / 5000` scheme failures. So this is not a data-quality cliff. It is a learnability cliff. More width fully rescues `q=23`, but only partially rescues `q=31`. This turns smallness into a diagnostic: the boundary is about circuit fit, not label noise or broken data.
 
 # 5. Leakage Hierarchy
 
@@ -278,7 +278,7 @@ The frontier is not a uniformly leaky small-budget curve.
 - `20,000` queries: `50.44%`, `50.49%`
 - `200,000` queries: `99.91%`, `99.92%`
 
-So black-box capability theft is real, but it is not trivially cheap in this regime. The curve looks threshold-shaped rather than smoothly leaky.
+This makes capability theft look threshold-shaped rather than smoothly leaky. The learned function can be cloned, but not by the low-budget random-query probes that fail to cover the circuit.
 
 ## 5.2 Boundary Attacks Constrain The Secret Without Uniquely Recovering It
 
@@ -309,7 +309,7 @@ So the right summary is no longer just “chosen queries are weak.” It is more
 - structured black-box querying can collapse the planted key to a narrow ambiguity class
 - but that ambiguity class does not collapse to a unique literal secret in the tested regime
 
-That distinction matters. The positive extraction result is real, but it is a rank-collapse result rather than an exact-secret recovery result.
+That distinction matters. This is rank-collapse rather than exact-secret recovery: the attack finds the right ambiguity class before it finds the literal key.
 
 ## 5.3 The Penultimate State Almost Linearly Exposes the Decryptor
 
@@ -377,11 +377,11 @@ for epochs `5`, `10`, and final checkpoints alike.
 - random `255`: `49.38%`, `49.34%`
 - structured `255`: `49.58%`, `49.67%`
 
-This does not prove that secret extraction is impossible. It does show that the easiest leakage channel we found is not “read the secret straight out of the weights.” What leaks first is the ability to emulate the decryptor and, inside a single trained model, a late representation that already looks almost decrypted.
+The easiest leakage channel we found is not “read the secret straight out of the weights.” What leaks first is the ability to emulate the decryptor and, inside a single trained model, a late representation that already looks almost decrypted.
 
 # 6. Compact Controls On The Winner
 
-The core learnability and leakage results leave three obvious interpretation questions. Is the winning circuit tied to one sampled public matrix, or does it implement a reusable same-secret rule? Is the learned computation locally editable, or only globally replaceable? And is the positive regime narrow because it requires exactly zero noise, or because scale changes the task qualitatively?
+The core learnability and leakage results leave three obvious interpretation questions. Is the winning circuit tied to one sampled public matrix, or does it implement a reusable same-secret rule? Is the learned computation locally editable, or only globally replaceable? And is the positive regime bounded by exact zero-noise cleanliness, or by scale?
 
 The following compact controls answer those questions without turning the paper into a second project.
 
@@ -408,17 +408,17 @@ That local success does not extend to fresh unrelated keys. The same low-rank pa
 - `10,000` examples: `49.86%`
 - `100,000` examples: `50.12%`
 
-So the winner is editable in a local sense, but not easily re-keyable in the tested low-rank form.
+This separates local editability from re-keyability. The patch can move a nearby secret, but it does not behave like a general key compiler.
 
 ## 6.3 Moderate Noise Is Tolerated; Larger Modulus Remains The Real Boundary
 
-The narrowness of the positive regime also has structure. At fixed `q=17` and width `256`, a compact sigma ladder stayed near-saturated:
+The positive regime's boundary has structure. At fixed `q=17` and width `256`, a compact sigma ladder stayed near-saturated:
 
 - `sigma = 0.10`: `99.85%`
 - `sigma = 0.25`: `99.88%`
 - `sigma = 0.50`: `99.87%`
 
-Combined with the earlier `q`/width sweep, this sharpens the interpretation. The main regime is narrow, but not because the winner only works at exactly `sigma = 0`. Moderate noise is tolerated at small modulus. The more serious boundary in the current benchmark is modulus growth, where width fully rescues `q=23` but only partially rescues `q=31`.
+Combined with the earlier `q`/width sweep, this sharpens the interpretation. The boundary is not exact cleanliness. Moderate noise is tolerated at small modulus. The more serious boundary in the current benchmark is modulus growth, where width fully rescues `q=23` but only partially rescues `q=31`.
 
 # 7. Discussion
 
@@ -426,7 +426,7 @@ Combined with the earlier `q`/width sweep, this sharpens the interpretation. The
 
 The most faithful summary is not “transformers can hide keys in weights.” That framing is too vague and, for this benchmark, largely misses the point.
 
-What the paper shows is narrower and better:
+What the paper shows is more specific:
 
 - a neural model can learn a fixed-key modular decryptor in a clean nontrivial regime
 - the right inductive bias matters a lot
@@ -440,13 +440,9 @@ What the paper shows is narrower and better:
 
 That asymmetry is the core result. Black-box stealing is delayed. Boundary attacks collapse the key to an ambiguity class rather than a literal secret. Raw weights do not suddenly reveal the secret. But the penultimate state of a winning model already exposes a decryptor-equivalent representation almost linearly.
 
-## 7.2 What The Paper Does Not Show
+## 7.2 Scope
 
-This is not evidence for a secure software vault. The benchmark is tiny, fixed-key, and deliberately controlled. The positive regime is narrow. We do not claim that a model has learned general lattice cryptography, nor that the secret becomes permanently hidden just because exact secret recovery is not immediate.
-
-We also do not claim that attention can never work. We claim something narrower and empirically grounded: in the small attention families and training setups we tested, attention was mismatched, while structured additive-set circuits fit the task naturally.
-
-We also do not claim that editability implies re-keyability. In the tested low-rank intervention path, local secret editing worked, but cross-key retargeting did not.
+The scope is controlled on purpose. The benchmark is tiny, fixed-key, and deliberately clean; that is what makes the architecture split, rank-collapse result, and late-state leakage interpretable. Within that scope, the evidence supports a keyed-circuit story rather than a secure-vault story, a small-attention story, or a general re-keyability story.
 
 ## 7.3 Why The Leakage Story Matters
 
@@ -456,13 +452,12 @@ The most interesting outcome is that different notions of “recovery” separat
 - collapsing the secret to a narrow ambiguity class is easier than exact literal recovery
 - probing the internal computation of one trained winner exposes decryptor state more easily than literal secret structure across many winners
 
-That makes the benchmark useful even under a narrower framing. The right question is not whether a model can become a perfect hidden-key box. It is what form of leakage appears first once a keyed circuit is learned.
+That makes the benchmark useful as a controlled leakage microscope. The right question is not whether a model can become a perfect hidden-key box. It is what form of leakage appears first once a keyed circuit is learned.
 
 # 8. Limitations
 
-This work is intentionally narrow.
+The strongest positive results live in tiny clean regimes. That is the methodological choice of the paper. The main remaining limits are:
 
-- The strongest positive results live in tiny clean regimes.
 - The attention comparison is broad enough to be meaningful, but not exhaustive.
 - Our chosen-query attacks show ambiguity-class collapse, but they are still not full cryptanalysis.
 - The weight and activation meta-extraction results are negative only for the probes we tried.

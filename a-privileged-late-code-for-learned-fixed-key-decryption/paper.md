@@ -15,7 +15,7 @@ The code is privileged but not exclusive. Removing it weakens the frozen model, 
 
 # 1. Introduction
 
-This paper asks a narrow mechanistic question about a learned modular circuit. A model is trained only on ciphertexts and output bits for one fixed secret key. In the regime studied here, small DeepSets models solve the task; the present question is what kind of internal object those solved models use.
+This paper uses a tiny fixed-key regime by design: tiny regimes are where a mechanism can be named. A model is trained only on ciphertexts and output bits for one fixed secret key. In the regime studied here, small DeepSets models solve the task; the present question is what kind of internal object those solved models use.
 
 Linear probes often find information that a model does not use. Bottleneck claims go too far in the other direction: they imply that the computation must pass through one uniquely necessary low-dimensional channel. This paper studies the middle object: a representation that is not the only place the computation lives, but is still the most efficient causal handle on it.
 
@@ -82,7 +82,7 @@ Across four winners:
 - activated mean 1D keep-only accuracy: 99.45%
 - activated mean 2D keep-only accuracy: 99.64%
 
-The contrast is sharp. Earlier internal views remain at chance under the same compression test. The final activated state does not. This ties the compact representation to the final stage of the learned computation rather than to low-dimensional structure already present upstream.
+The contrast kills the generic-early-statistic explanation. The compact representation is not merely carried forward from pooled or normalized views; it is organized at the final stage of the learned computation.
 
 # 4. Probe-Aligned Directions Are Privileged
 
@@ -100,7 +100,7 @@ Across four winners:
 - PCA mean 8D keep-only accuracy: 85.03%
 - PCA mean 16D keep-only accuracy: 93.10%
 
-Probe-derived directions are vastly more behaviorally efficient than generic variance directions. The gap is too large to treat as a readout convenience. The late representation does not merely contain information about the decryptor; it contains a small privileged carrier for that information.
+This kills the generic-low-rank explanation. The late representation does not merely contain information about the decryptor; it contains a small privileged carrier for that information.
 
 # 5. Patching the Code Moves the Decryptor
 
@@ -127,7 +127,7 @@ Within-model patching shows exactly that bracket:
   - donor $d$ transfer: 99.98%
   - donor beta transfer: 81.76%
 
-These are not generic low-rank interventions. They are directionally specific. Replacing the probe-derived activated-state code can carry the donor decryptor state into the recipient computation, while random matched directions do not.
+This makes the code causal rather than decorative. Replacing the probe-derived activated-state code can carry the donor decryptor state into the recipient computation, while random matched directions do not.
 
 # 6. The Complement Carries Redundant Signal
 
@@ -172,9 +172,9 @@ The privileged subspace remains real on average, but its strength varies:
   - mean donor $d$ transfer: 99.68%
   - donor beta transfer range across seeds: 19.14% to 93.21%
 
-The complement tells the other half of the story. Pooled across all 10 runs, complement-swap mean donor beta transfer is 47.65%, while mean donor $d$ transfer is only 12.84%.
+The complement tells the other half of the story: it can still affect output behavior without reliably carrying the donor decryptor state.
 
-This is not the same tiny plane appearing identically in every model. It is a stable mechanistic pattern with variable downstream magnitude. Full swaps, random controls, and probe-derived subspaces keep the same qualitative ordering; the amount of donor control carried by the privileged subspace changes across winners. Across seeds, the effect is stable in kind and variable in strength.
+This is not the same tiny plane appearing identically in every model. It is a stable mechanistic pattern with variable downstream magnitude. Full swaps, random controls, and probe-derived subspaces keep the same qualitative ordering; the amount of donor control carried by the privileged subspace changes across winners.
 
 # 8. Discussion: Privileged Code, Not Bottleneck
 
@@ -184,7 +184,7 @@ First, the code is late-localized. Earlier internal states do not support useful
 
 Second, it is privilegedly compact. Probe-derived directions preserve behavior at dimensions where PCA and random controls remain near chance.
 
-Third, it is causal in the narrow sense this benchmark can support. Full swaps go donor-side, random matched subspaces stay recipient-side, and targeted probe-derived swaps move both the latent decryptor and the output in the donor direction.
+Third, it is causal in the benchmark's class-flip faithfulness sense. Full swaps go donor-side, random matched subspaces stay recipient-side, and targeted probe-derived swaps move both the latent decryptor and the output in the donor direction.
 
 Fourth, it is redundant rather than exclusive. The complement is weaker for the frozen head but still contains substantial readout signal.
 
@@ -202,15 +202,12 @@ Finally, they do not show that every useful aspect of the trained representation
 
 # 9. Limitations
 
-This paper is deliberately narrow.
+The regime is small: clean fixed-key $n=4, q=17, \sigma=0$. That smallness is the method, not an apology; it is what makes the causal object legible. The remaining limits are:
 
-- The regime is small: clean fixed-key $n=4, q=17, \sigma=0$.
 - The source models all come from one successful architecture family.
 - The patch-faithfulness setup is constrained by the $q=17$ support and should not be read as a full latent-distance sweep.
 - The seed battery supports a stable phenomenon with variable strength, not seed-invariant geometry.
 - The complement readout result means the code is privileged, not exclusive.
-
-These limits are acceptable because the paper is not trying to prove a broad theorem about modular computation. It is characterizing one sharp mechanistic object in one controlled family of learned keyed circuits.
 
 # 10. Conclusion
 

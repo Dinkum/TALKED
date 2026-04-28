@@ -13,9 +13,9 @@ This paper asks whether there is a usable middle object: a small latent packet i
 
 We train a frozen discrete packet ABI on modular checksum specialists, then introduce retrieval/ranking specialists from a different domain. Retrieval models are not allowed to change the language. They only learn small sender-local compilers into the frozen packet space. The message is tiny: two discrete choices from a 32-symbol vocabulary, or 10 bits of symbolic bandwidth.
 
-The checksum-trained ABI transfers. In two independent runs, frozen checksum decoders recover retrieval state at 71.6% and 72.9% accuracy and retrieval confidence/margin at 71.5% and 62.2%, while shuffled-symbol controls collapse to 2.9%-12.1%. A different candidate-wise retrieval architecture also compiles into the same ABI, reaching 79.1% / 71.4% state transfer and 73.3% / 72.1% margin transfer across two seeds. Symbol interventions move decoded semantics in stable directions. Pair and set/ranking composition also transfer above shuffled controls, but remain less robust than single-example state and margin.
+The checksum-trained ABI transfers. Frozen checksum decoders recover retrieval state and confidence/margin far above shuffled-symbol controls in two independent runs; a different candidate-wise retrieval architecture also compiles into the same ABI. Symbol interventions move decoded semantics in stable directions. Pair and set/ranking composition transfer above shuffled controls, but remain less robust than single-example state and margin.
 
-Taken together, these results support a narrow but useful claim: a frozen latent ABI can preserve state and confidence semantics across held-out senders, domains, and architectures after local compilation. It is not a universal zero-shot language. It is a reusable interface.
+Taken together, these results support a concrete claim: a frozen latent ABI can preserve state and confidence semantics across held-out senders, domains, and architectures after local compilation. This is not spontaneous Esperanto. It is a reusable interface.
 
 # 1. Introduction
 
@@ -29,7 +29,7 @@ This paper studies the compiled version of latent communication. We ask whether 
 
 The working hypothesis is therefore compiled rather than spontaneous: models do not need to start with a shared latent language if they can learn small compilers into one.
 
-We use controlled domains because the semantics must be known. A checksum specialist maps a discrete input to a state bucket and a margin/confidence bucket. A retrieval specialist sees a query and candidate set, then identifies the top candidate and the top1/top2 confidence gap. These tasks are different, but they share abstract variables: state/class, confidence, ambiguity, and ordering.
+We use controlled domains because known semantics make the interface falsifiable. A checksum specialist maps a discrete input to a state bucket and a margin/confidence bucket. A retrieval specialist sees a query and candidate set, then identifies the top candidate and the top1/top2 confidence gap. These tasks are different, but they share abstract variables: state/class, confidence, ambiguity, and ordering.
 
 The test is deliberately hard. A checksum-trained ABI is frozen. Retrieval models do not retrain its decoders. They only learn a small compiler from their private hidden state into the packet. If frozen checksum decoders read retrieval packets, if symbol shuffles break the result, if symbol interventions have stable effects, and if a different retrieval architecture also compiles into the same packet space, then the packet is doing more than memorizing checksum labels.
 
@@ -81,9 +81,7 @@ The checksum-trained decoders read retrieval packets far above shuffled-symbol c
 | state | 71.6% | 4.9% | 72.9% | 2.9% |
 | margin | 71.5% | 11.6% | 62.2% | 12.1% |
 
-Checksum-trained receiver heads also transfer. In the first run, the state receiver reaches 73.4% on retrieval packets versus 4.4% shuffled, and the margin receiver reaches 55.0% versus 12.6% shuffled. In the replication, the same receivers reach 59.8% versus 9.3% for state and 57.8% versus 11.3% for margin.
-
-The strongest reading is simple: the packet is not just a checksum-specific code. A retrieval model, seeing a different input distribution and solving a different rule family, can compile its private state into the same packet format. Frozen decoders trained on checksum packets recover retrieval state and confidence semantics.
+Checksum-trained receiver heads also transfer, with the same above-control pattern. The strongest reading is simple: the packet is not just a checksum-specific code. A retrieval model, seeing a different input distribution and solving a different rule family, can compile its private state into the same packet format. Frozen decoders trained on checksum packets recover retrieval state and confidence semantics.
 
 Separate per-target ABIs give a useful upper bound. When margin and state are each given their own packet, retrieval transfer rises to 84%-94% under frozen decoders. Those runs are less strict because the packet is no longer shared across both targets, but they show that the domain transfer itself is robust. The multi-target packet is harder and more interesting.
 
@@ -113,7 +111,7 @@ This is the most language-like part of the result. Symbol identity is not decora
 
 # 5. The ABI Survives an Architecture Change
 
-The cross-domain result could still be too narrow. Perhaps the dot-product retrieval trunk exposes a state that is unusually easy to compile, while the packet would fail for a different computation graph.
+The cross-domain result could still be a dot-product artifact. Perhaps that retrieval trunk exposes a state that is unusually easy to compile, while the packet would fail for a different computation graph.
 
 We therefore train a candidate-wise retrieval specialist. Instead of one shared dot-product trunk, it uses candidate-local query/candidate/product/score features, candidate ID embeddings, a candidate-local MLP, and weighted/mean/max pooling. The task and labels stay the same. The checksum ABI stays frozen. The new retrieval model again gets only a local compiler into the packet.
 
@@ -130,13 +128,13 @@ The candidate-wise specialists learn the retrieval task strongly: state 97.5% / 
 
 Checksum-trained receiver heads also remain above controls. Seed A reaches 73.0% state and 69.1% margin, versus 12.9% and 8.4% shuffled. Seed B is weaker but still positive: 54.7% state and 59.9% margin, versus 16.5% and 8.1% shuffled.
 
-This is the strongest universality upgrade in these experiments. The ABI is not merely cross-domain; it is also not tied to one retrieval architecture's private geometry.
+This rules out the easiest private-geometry explanation. The ABI is not merely cross-domain; it is also not tied to one retrieval architecture's internal coordinates.
 
 # 6. Packets Partially Compose
 
 A packet language should eventually support more than one-example classification. We test two simple composition tasks. The pair task is a four-way relation over two examples, combining whether their states match and which has larger margin. The group task is a four-way "which item is most confident?" decision over four examples. Both have nominal 25% chance.
 
-Composition is the hardest test in the paper, and this packet only partially passes it. That should not be hidden, but it should also not be mistaken for failure of the ABI itself. Single-example state and margin semantics transfer much more cleanly than relation and group behavior.
+Composition is the hardest test in the paper, and this packet only partially passes it. The useful distinction is semantic transfer versus semantic algebra: single-example state and margin semantics transfer much more cleanly than relation and group behavior.
 
 We get the clearest bridge by composing decoded packet semantics rather than raw packet bits. A checksum-side head is trained on frozen decoder summaries: state probabilities, margin probabilities, normalized expected state, normalized expected margin, and confidence terms. It is then evaluated on retrieval-side decoded summaries.
 
@@ -149,7 +147,7 @@ The composition heads transfer above shuffled controls:
 | pair relation | 53.4% | 35.0% | 49.2% | 30.8% |
 | set/ranking | 55.3% | 47.9% | 47.2% | 38.0% |
 
-Pair composition is the cleaner result. Set/ranking is positive in the canonical semantic-composition runs, but it is less robust in the cross-architecture setting, where group transfer is essentially marginal. The claim is therefore not "we solved latent compositional language." It is that decoded packet semantics are reusable enough to support above-control relational behavior, with composition still the main limitation.
+Pair composition is the cleaner result. Set/ranking is positive in the canonical semantic-composition runs, but it is less robust in the cross-architecture setting, where group transfer is essentially marginal. The packet behaves like a reusable semantic interface before it behaves like a full compositional language.
 
 # 7. Interpretation
 
@@ -161,9 +159,9 @@ Second, this is not just one architecture's private geometry. A candidate-wise r
 
 Third, this is not an arbitrary continuous bottleneck with decorative symbol names. Symbol interventions move decoded semantics in consistent directions.
 
-Fourth, this is not full natural language. The packet needs a local compiler, and composition is incomplete. The result is more modest and, in practice, more plausible: compatible specialists can be compiled into a frozen latent interface.
+Fourth, this is a compiled interface, not full natural language. The packet needs a local compiler, and composition is incomplete. That makes the claim more practical: compatible specialists can be compiled into a frozen latent interface.
 
-This is why the ABI framing matters. A zero-shot hidden Esperanto would be surprising but brittle. A frozen packet language with small local compilers is a more realistic object: reusable, testable, and narrow enough to measure.
+This is why the ABI framing matters. A zero-shot hidden Esperanto would be surprising but brittle. A frozen packet language with small local compilers is a more realistic object: reusable, testable, and concrete enough to measure.
 
 # 8. Related Work
 
@@ -183,7 +181,7 @@ The packet is small but not proven minimal. Two 32-way symbols are deliberately 
 
 Composition is partial. Pair relations transfer more cleanly than set/ranking behavior, and group composition is the main weak spot for this ABI.
 
-The architecture result uses one additional retrieval family, not a broad architecture zoo. It rules out a narrow dot-product-only explanation, but it does not settle architecture universality.
+The architecture result uses one additional retrieval family, not a broad architecture zoo. It rules out a dot-product-only explanation, but it does not settle architecture universality.
 
 # 10. Conclusion
 
