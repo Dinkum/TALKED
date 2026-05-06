@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440" viewBox="0 0 960 440">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="30" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Frozen connector transfer</text>
+  <text x="30" y="58" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Strong-source mean across two replications. Orange marks shuffled state-control accuracy.</text>
+  <text x="248" y="82" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">state</text>
+  <rect x="285" y="72" width="16" height="10" fill="#2f6f73"/>
+  <text x="318" y="82" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">margin</text>
+  <rect x="370" y="72" width="16" height="10" fill="#0f766e"/>
+  <text x="404" y="82" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">pair</text>
+  <rect x="434" y="72" width="16" height="10" fill="#4f46e5"/>
+  <text x="468" y="82" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">shuffled state</text>
+  <rect x="558" y="72" width="16" height="10" fill="#d6a15d"/>
+  <line x1="210" y1="96" x2="210" y2="374" stroke="#d8dee9"/>
+  <line x1="368" y1="96" x2="368" y2="374" stroke="#d8dee9"/>
+  <line x1="526" y1="96" x2="526" y2="374" stroke="#d8dee9"/>
+  <line x1="684" y1="96" x2="684" y2="374" stroke="#d8dee9"/>
+  <line x1="842" y1="96" x2="842" y2="374" stroke="#d8dee9"/>
+  <text x="368" y="402" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">25%</text>
+  <text x="526" y="402" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">50%</text>
+  <text x="684" y="402" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">75%</text>
+  <text x="842" y="402" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">100%</text>
+
+  <text x="190" y="125" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">checksum</text>
+  <rect x="210" y="106" width="27" height="9" rx="2" fill="#d6a15d"/>
+  <rect x="210" y="119" width="464" height="11" rx="2" fill="#2f6f73"/>
+  <rect x="210" y="134" width="526" height="11" rx="2" fill="#0f766e"/>
+  <rect x="210" y="149" width="407" height="11" rx="2" fill="#4f46e5"/>
+  <text x="850" y="139" font-family="Arial, sans-serif" font-size="13" fill="#111827">73.4 / 83.2 / 64.4</text>
+
+  <text x="190" y="196" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">retrieval</text>
+  <rect x="210" y="177" width="8" height="9" rx="2" fill="#d6a15d"/>
+  <rect x="210" y="190" width="574" height="11" rx="2" fill="#2f6f73"/>
+  <rect x="210" y="205" width="516" height="11" rx="2" fill="#0f766e"/>
+  <rect x="210" y="220" width="467" height="11" rx="2" fill="#4f46e5"/>
+  <text x="850" y="210" font-family="Arial, sans-serif" font-size="13" fill="#111827">90.9 / 81.7 / 74.0</text>
+
+  <text x="190" y="267" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">retrieval arch</text>
+  <rect x="210" y="248" width="3" height="9" rx="2" fill="#d6a15d"/>
+  <rect x="210" y="261" width="606" height="11" rx="2" fill="#2f6f73"/>
+  <rect x="210" y="276" width="559" height="11" rx="2" fill="#0f766e"/>
+  <rect x="210" y="291" width="506" height="11" rx="2" fill="#4f46e5"/>
+  <text x="850" y="281" font-family="Arial, sans-serif" font-size="13" fill="#111827">95.9 / 88.4 / 80.1</text>
+
+  <text x="190" y="338" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">max-index</text>
+  <rect x="210" y="319" width="4" height="9" rx="2" fill="#d6a15d"/>
+  <rect x="210" y="332" width="605" height="11" rx="2" fill="#2f6f73"/>
+  <rect x="210" y="347" width="452" height="11" rx="2" fill="#0f766e"/>
+  <rect x="210" y="362" width="531" height="11" rx="2" fill="#4f46e5"/>
+  <text x="850" y="352" font-family="Arial, sans-serif" font-size="13" fill="#111827">95.7 / 71.6 / 84.1</text>
+
+</svg>
