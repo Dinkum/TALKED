@@ -6,4 +6,6 @@
 
 [Compiled Model Esperanto: A Frozen Latent ABI for Neural Specialists](./compiled-model-esperanto-a-frozen-latent-abi-for-neural-specialists/README.md) - A controlled test of frozen low-bandwidth latent packet interfaces across held-out neural specialist domains and architectures.
 
-[A Universal Connector for Neural Specialists](./a-universal-connector-for-neural-specialists/README.md) - A frozen typed packet socket trained on two source domains and reused by held-out, cross-architecture, and unseen-domain neural specialists.
+[A Frozen Socket for Neural Specialists](./a-frozen-socket-for-neural-specialists/README.md) - A tiny frozen packet ABI that lets unrelated neural specialists plug in through local encoders while a matched random socket fails.
+
+[A Tiny Language Model Can Read Neural Sockets](./a-tiny-language-model-can-read-neural-sockets/README.md) - A tiny transformer reader trained on source socket messages decodes packets from unrelated held-out neural specialists.

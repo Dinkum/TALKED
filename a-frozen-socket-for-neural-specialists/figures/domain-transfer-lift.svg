@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="660" viewBox="0 0 1120 660">
+  <rect width="1120" height="660" fill="#ffffff"/>
+  <text x="42" y="48" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#111827">Unrelated skills compile into the trained socket</text>
+  <text x="310" y="104" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">0%</text>
+  <text x="456" y="104" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">25%</text>
+  <text x="608" y="104" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">50%</text>
+  <text x="760" y="104" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">75%</text>
+  <text x="910" y="104" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">100%</text>
+
+  <line x1="316" y1="118" x2="316" y2="594" stroke="#e5e7eb"/>
+  <line x1="468" y1="118" x2="468" y2="594" stroke="#e5e7eb"/>
+  <line x1="620" y1="118" x2="620" y2="594" stroke="#e5e7eb"/>
+  <line x1="772" y1="118" x2="772" y2="594" stroke="#e5e7eb"/>
+  <line x1="924" y1="118" x2="924" y2="594" stroke="#e5e7eb"/>
+
+  <rect x="316" y="132" width="241" height="14" fill="#d9a35f"/>
+  <rect x="316" y="150" width="522" height="14" fill="#2f7478"/>
+  <rect x="316" y="168" width="579" height="14" fill="#5046e4"/>
+  <text x="292" y="160" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">Different retrieval architecture</text>
+  <text x="948" y="160" font-family="Arial, sans-serif" font-size="13" fill="#111827">+46.3 lift, 95.2 state</text>
+
+  <rect x="316" y="214" width="247" height="14" fill="#d9a35f"/>
+  <rect x="316" y="232" width="528" height="14" fill="#2f7478"/>
+  <rect x="316" y="250" width="606" height="14" fill="#5046e4"/>
+  <text x="292" y="242" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">Graph shortest-path</text>
+  <text x="948" y="242" font-family="Arial, sans-serif" font-size="13" fill="#111827">+46.1 lift, 99.7 state</text>
+
+  <rect x="316" y="296" width="219" height="14" fill="#d9a35f"/>
+  <rect x="316" y="314" width="496" height="14" fill="#2f7478"/>
+  <rect x="316" y="332" width="578" height="14" fill="#5046e4"/>
+  <text x="292" y="324" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">Max-index</text>
+  <text x="948" y="324" font-family="Arial, sans-serif" font-size="13" fill="#111827">+45.5 lift, 95.0 state</text>
+
+  <rect x="316" y="378" width="236" height="14" fill="#d9a35f"/>
+  <rect x="316" y="396" width="485" height="14" fill="#2f7478"/>
+  <rect x="316" y="414" width="567" height="14" fill="#5046e4"/>
+  <text x="292" y="406" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">Count positive</text>
+  <text x="948" y="406" font-family="Arial, sans-serif" font-size="13" fill="#111827">+40.0 lift, 93.3 state</text>
+
+  <rect x="316" y="460" width="239" height="14" fill="#d9a35f"/>
+  <rect x="316" y="478" width="477" height="14" fill="#2f7478"/>
+  <rect x="316" y="496" width="563" height="14" fill="#5046e4"/>
+  <text x="292" y="488" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">Rank first item</text>
+  <text x="948" y="488" font-family="Arial, sans-serif" font-size="13" fill="#111827">+39.1 lift, 92.5 state</text>
+
+  <rect x="316" y="542" width="230" height="14" fill="#d9a35f"/>
+  <rect x="316" y="560" width="485" height="14" fill="#2f7478"/>
+  <rect x="316" y="578" width="546" height="14" fill="#5046e4"/>
+  <text x="292" y="570" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#111827">Held-out retrieval</text>
+  <text x="948" y="570" font-family="Arial, sans-serif" font-size="13" fill="#111827">+41.8 lift, 89.7 state</text>
+
+  <rect x="42" y="612" width="14" height="14" fill="#d9a35f"/>
+  <text x="64" y="624" font-family="Arial, sans-serif" font-size="13" fill="#374151">random socket composite</text>
+  <rect x="230" y="612" width="14" height="14" fill="#2f7478"/>
+  <text x="252" y="624" font-family="Arial, sans-serif" font-size="13" fill="#374151">trained socket composite</text>
+  <rect x="438" y="612" width="14" height="14" fill="#5046e4"/>
+  <text x="460" y="624" font-family="Arial, sans-serif" font-size="13" fill="#374151">trained state transfer</text>
+</svg>
