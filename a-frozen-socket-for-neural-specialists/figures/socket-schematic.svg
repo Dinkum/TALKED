@@ -19,7 +19,7 @@
   <text x="474" y="220" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">2 code slots</text>
   <text x="474" y="244" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">32 symbols per slot</text>
   <text x="474" y="268" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">state reader</text>
-  <text x="474" y="292" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">margin reader</text>
+  <text x="474" y="292" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">auxiliary reader</text>
   <text x="474" y="316" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">pair/group semantic heads</text>
 
   <path d="M684 250 C730 250 740 168 786 168" fill="none" stroke="#64748b" stroke-width="2.5"/>
@@ -39,8 +39,8 @@
 
   <rect x="804" y="296" width="260" height="68" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="826" y="325" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Different retrieval architecture</text>
-  <text x="826" y="348" font-family="Arial, sans-serif" font-size="13" fill="#374151">95.2% state, 87.3% margin</text>
+  <text x="826" y="348" font-family="Arial, sans-serif" font-size="13" fill="#374151">95.2% state, 87.3% auxiliary</text>
 
   <line x1="442" y1="388" x2="678" y2="388" stroke="#e11d48" stroke-width="2" stroke-dasharray="7 7"/>
-  <text x="450" y="416" font-family="Arial, sans-serif" font-size="13" fill="#9f1239">Matched random socket control collapses on the same adapter protocol.</text>
+  <text x="450" y="416" font-family="Arial, sans-serif" font-size="13" fill="#9f1239">Matched random socket cannot recover source-trained packet semantics.</text>
 </svg>

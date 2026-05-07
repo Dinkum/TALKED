@@ -12,9 +12,9 @@ Language models usually meet tools through interfaces designed for humans: names
 
 We test a smaller interface. Source-domain neural specialists train a frozen typed packet socket. Held-out specialists from unrelated skills then compile into that same socket through local adapters. A tiny transformer receiver is trained only on source socket messages and is evaluated on held-out graph shortest-path, max-index, count-positive, and rank-first packets.
 
-Across independent replications, held-out packet state is read near `90%` accuracy. No-packet and shuffled controls collapse, while packet-only reading is slightly stronger than the full message.
+Across three independent replications, held-out packet state is read near `90%` accuracy. No-packet and shuffled controls collapse, while packet-only reading is slightly stronger than the full message.
 
-The packet carries more than a label. Across the same held-out skills, the receiver reads confidence-like margin buckets and pair relations above controls. A much smaller reader keeps the effect.
+The packet carries more than a label. Across the same held-out skills, pair-relation reading stays strong and confidence-like margin remains present but weaker. A much smaller reader keeps the effect.
 
 The result supports a concrete interface: a language-shaped transformer learns a neural packet ABI on source specialists and keeps reading when the specialist skill changes. Specialists do specialist work, then expose compact typed packets that language-facing models can read without inheriting the whole specialist. That is a route to neural tool use where the interface is not prose wrapped around a model, but a learned calling convention between models.
 
@@ -79,9 +79,27 @@ The receiver is a two-layer transformer over a short token sequence, trained fro
 
 The main receiver is a small two-layer token transformer. A smaller follow-up receiver is used as a capacity control.
 
-# 3. Transfer Test and Controls
+## One Packet Trace
 
-The replicated battery reports means over independent trainings. The effect survives fresh random initialization, data draws, specialist training, ABI training, held-out adaptation, and receiver training.
+Here is one logged held-out packet from the graph shortest-path task. The symbol names are learned packet tokens, not hand-written answer labels.
+
+```text
+task: graph_shortest_path
+input_id: graph_path_test_0
+specialist_answer: state=path_len_bucket=6, margin=margin_bucket=2
+packet: slot_1=S06, slot_2=S02
+receiver_message: <BOS> <TASK> <SENDER_0> <SEP> S06 S02
+packet_only_message: <MASK> <MASK> <MASK> <MASK> S06 S02
+frozen_decoder_output: state=path_len_bucket=6, margin=margin_bucket=2
+transformer_reader_output: state=path_len_bucket=6, margin=margin_bucket=2
+packet_only_reader_output: state=path_len_bucket=6, margin=margin_bucket=2
+```
+
+This is the object the experiment is about: a specialist emits two discrete symbols, the typed ABI decoder gives those symbols state and margin meaning, and the token reader consumes the same symbols as a tiny message. The packet-only control keeps exactly the two learned symbols and removes the rest.
+
+# 3. Experimental Setup and Controls
+
+The replicated battery reports means over three independent trainings. Each replication redraws random seeds for data, specialist training, ABI training, held-out adaptation, and receiver training.
 
 Each run follows the same pipeline:
 
@@ -92,6 +110,20 @@ Each run follows the same pipeline:
 5. Evaluate that receiver on held-out specialist packets.
 
 The core state-reading test asks the receiver to predict the held-out packet's typed state.
+
+The main battery uses two checksum source senders and two dot-product retrieval source senders. The held-out side uses one sender per unrelated skill: graph shortest-path, max-index, count-positive, and rank-first. Each domain has `12,288` train examples, `3,072` validation examples, and `3,072` test examples per run.
+
+The packet has two discrete slots. Each slot has a `32`-symbol codebook, so the packet address space is `32 x 32`, and the tokenized receiver vocabulary contains `32` scaffold tokens plus `64` packet-symbol tokens. State has `8` classes. Margin has `6` classes. Pair relation has `4` classes.
+
+The source ABI is a straight-through discrete encoder with separate frozen MLP decoders for state and margin. It is trained for `72` epochs with AdamW at learning rate `1e-3`, batch size `1024`, hidden dimension `160`, and a source ABI training budget of `6,144` examples per source sender. The main loss is state and margin cross-entropy through the two-slot packet, with auxiliary slot anchors for state and margin and a small usage-entropy term.
+
+Held-out specialists do receive supervision, but only to fit local encoders into the already trained ABI. For each held-out skill, the state and margin decoders are frozen. A local adapter encoder is trained for `48` epochs on `2,048` examples from that held-out skill, using state and margin supervision through the frozen decoders. After that adapter is fit, the adapter and ABI are frozen for receiver evaluation.
+
+This is the operational meaning of "compile into the socket." The held-out adapter is allowed to learn how its specialist should emit the two packet symbols. The reader is not allowed to learn from held-out skill messages. The claim is therefore not zero-shot sender learning. It is frozen-reader interface transfer: once a new specialist has been locally adapted into the packet ABI, the source-trained reader keeps reading the packet.
+
+The receiver is a two-layer transformer encoder over short packet-token messages. The main receiver uses hidden dimension `160`, four attention heads, no dropout, AdamW at learning rate `1e-3`, batch size `1024`, and `64` training epochs. It is trained only on source-domain packet messages. Single-packet messages have length `6`; pair messages have length `10`. A smaller follow-up receiver repeats the test with hidden dimension `64`.
+
+The nominal uniform chance baselines are `12.5%` for state, `16.7%` for margin, and `25.0%` for pair relation. Reported replication tables use mean and standard deviation over `n = 3` independent runs. A companion baseline pass also records majority-class baselines, balanced accuracy, confusion matrices, simple non-transformer readers, and codebook-utilization statistics. Because held-out task label distributions and transferred source priors can be uneven, the no-packet and shuffled controls are still the most important empirical baselines.
 
 The controls decide whether the reader learned the packet or merely learned the wrapper:
 
@@ -128,7 +160,7 @@ This is why the result is closer to an interface experiment than a compression e
 
 # 5. Main Result: The Reader Transfers
 
-Across independent trainings and four unrelated held-out skills, the receiver reads state from real socket packets far above both controls. Packet-only reading is slightly stronger than the full message.
+Across three independent trainings and four unrelated held-out skills, the receiver reads state from real socket packets far above both controls. Packet-only reading is slightly stronger than the full message.
 
 ![Mean state accuracy across replicated runs. Packet-only keeps only the two packet symbols and masks the rest of the message.](./figures/reader-state-controls.svg){ width=100% }
 
@@ -138,32 +170,69 @@ The full-message and packet-only comparison is especially useful. If the prefix 
 
 The two symbols are neither a natural-language answer nor a dense activation dump. They are closer to a tiny register file. Once the reader has learned the calling convention, an unrelated specialist can place its state into the same slots and become readable.
 
-# 6. The Packet Carries Typed Signals
+# 6. Structure in the Packet
 
-A useful socket should expose more than a single answer label. The same receiver family was tested on two additional questions:
+A useful socket should expose an interface, not one lucky label channel. The first check asks whether the reader can recover typed signals beyond the main state bucket:
 
 | target | question |
 |---|---|
 | margin | can the receiver read a confidence-like ambiguity bucket? |
-| pair relation | given two packets, can it classify a relation involving beta-class agreement and larger margin? |
+| pair relation | given two packets, can it classify state-bucket agreement and larger margin? |
 
-Both probes stay positive. Margin is noisier than state, but packet-only margin remains strong. Pair relations are harder than single-packet state, yet they beat no-packet and shuffled controls on the mean.
+State is the cleanest result. Pair relations are also clear: they remain far above chance and no-packet controls. Margin is useful but weaker; it carries signal, especially in packet-only form, but it should be read as supporting evidence rather than the headline.
 
 Margin matters because a specialist interface should not expose only its final bucket. Many downstream decisions depend on ambiguity: whether to ask for another specialist, abstain, compare two candidate answers, or route the case into a slower path. A packet that carries a confidence-like signal is more useful than a packet that merely says "class three."
 
 The pair-relation probe is the more compositional diagnostic. The reader receives two packets and predicts a relation that depends on both. This is not the same as decoding one packet twice and printing two answers; it asks whether packet-coded state and margin structure can be compared inside the receiver.
 
-\newpage
-
 ![Mean accuracy across state, margin, and pair-relation probes. State is the cleanest result; margin and pair relation show that the packet carries additional typed structure.](./figures/reader-typed-summary.svg){ width=100% }
 
-| target | socket | no packet | shuffled | packet only |
-|---|---:|---:|---:|---:|
-| state | `87.7%` | `14.6%` | `4.7%` | `89.4%` |
-| margin | `55.7%` | `8.9%` | `13.5%` | `66.6%` |
-| pair relation | `61.7%` | `25.2%` | `36.4%` | `63.5%` |
+The table reports mean accuracy over three independent replications, with standard deviation in parentheses.
 
-Taken together, the typed probes give the packet a richer shape: state is the cleanest channel, margin is real but less crisp, and two-packet relations remain above controls. The packet carries typed structure beyond the final answer bucket.
+| target | chance | socket | no packet | shuffled | packet only |
+|---|---:|---:|---:|---:|---:|
+| state | `12.5%` | `87.7 (2.5)%` | `14.6 (2.1)%` | `4.7 (3.8)%` | `89.4 (2.2)%` |
+| margin | `16.7%` | `55.7 (10.5)%` | `8.9 (11.0)%` | `13.5 (5.1)%` | `66.6 (2.0)%` |
+| pair relation | `25.0%` | `61.7 (3.8)%` | `25.2 (0.9)%` | `36.4 (4.5)%` | `63.5 (2.2)%` |
+
+A fresh-seed class-balance pass gives the weaker numbers their context. Parentheses are again standard deviations over three seeds. State and pair remain well above majority and chance under balanced accuracy. Margin is close to the majority baseline in raw accuracy, so the conservative reading is that margin is a weaker auxiliary field rather than a second state-like channel.
+
+| target | socket accuracy | balanced accuracy | majority | chance |
+|---|---:|---:|---:|---:|
+| state | `78.6 (2.5)%` | `69.3 (1.6)%` | `22.4%` | `12.5%` |
+| margin | `59.4 (8.0)%` | `39.1 (6.3)%` | `55.4%` | `16.7%` |
+| pair relation | `59.0 (0.8)%` | `59.0 (0.8)%` | `26.2%` | `25.0%` |
+
+The second check asks whether a language-shaped transformer is required to read the packet. It is not. In the same baseline pass, simple readers trained on source packet messages also read held-out packets:
+
+| reader | state accuracy | state balanced | pair accuracy |
+|---|---:|---:|---:|
+| lookup | `80.5 (3.5)%` | `70.8 (4.3)%` | `44.7 (2.6)%` |
+| linear | `86.3 (3.0)%` | `76.8 (4.7)%` | `35.9 (1.3)%` |
+| MLP | `86.4 (5.3)%` | `77.2 (3.9)%` | `63.4 (0.4)%` |
+
+That result strengthens the ABI interpretation. A good calling convention should be parseable by simple consumers. The transformer reader is useful because it is a language-shaped packet consumer, not because the packet can only be decoded by a transformer.
+
+The third check asks whether the two-symbol codebook collapsed into a few degenerate cases. It did not. Across held-out skills in the baseline pass, the packet uses dozens of active symbol pairs and carries measurable association with state:
+
+| utilization metric | value |
+|---|---:|
+| active symbol pairs | `55.3 (12.8)` |
+| top pair frequency | `13.8 (1.7)%` |
+| normalized pair entropy | `0.446 (0.023)` |
+| mutual information with state | `2.245 (0.013)` bits |
+| mutual information with margin | `0.737 (0.105)` bits |
+
+Taken together, the typed probes, simple-reader baselines, and utilization check give the packet a richer shape. State is the cleanest channel, pair comparison is robust, margin is present but weaker, and the codebook is used as a compact interface rather than a single magic token.
+
+The frozen ABI decoders and the token reader play different roles. The decoders define what a valid packet means after a held-out adapter emits it. The transformer reader tests whether the same packet can be consumed as a short token message after training only on source-domain messages.
+
+| target | frozen ABI decoder | transformer reader | packet-only reader |
+|---|---:|---:|---:|
+| state | `88.6 (3.1)%` | `87.7 (2.0)%` | `89.4 (1.8)%` |
+| margin | `67.4 (2.1)%` | `55.7 (8.5)%` | `66.6 (1.6)%` |
+
+For state, the token reader essentially matches the frozen decoder. For margin, the full-message reader is noisier, while the packet-only reader is close to the direct decoder. That pattern supports the narrower interpretation: the packet symbols already carry the typed signal, and the language-shaped receiver is learning to parse that packet rather than solving the held-out task from raw inputs.
 
 # 7. The Effect Survives a Smaller Reader
 
@@ -216,13 +285,23 @@ Tool-using language model systems usually train or prompt an LLM to call softwar
 
 This work studies a lower-level interface. The tool does not return text, and the receiver does not parse JSON. A neural specialist emits a tiny typed packet. A token transformer learns to read the packet contract.
 
-Emergent-communication work studies agents that learn messages for cooperation [5,6]. Translating Neuralese studies mappings between learned messages and human language [8]. Latent communication studies reuse and translation of internal representations across independently trained networks [7].
+Emergent-communication work studies agents that learn messages for cooperation [5,6]. Discrete-Valued Neural Communication studies discrete communication between components inside structured neural architectures, including transformers, modular architectures, and graph neural networks, and shows that shared discrete codebooks can improve systematic generalization [7]. Translating Neuralese studies mappings between learned messages and human language [9]. Latent communication studies reuse and translation of internal representations across independently trained networks [8].
 
-The socket test is operationally different from all three. The sender and receiver are not jointly trained end to end on every held-out skill. The held-out specialist enters a frozen packet ABI, and the same reader is tested on the resulting message.
+The socket test is operationally closest to DVNC, but it asks a different interface question. DVNC discretizes communication inside a structured model family. Here, separately trained specialists are locally adapted into an externally reusable packet ABI, the typed state and margin decoders are frozen, and a source-trained reader is evaluated on unrelated held-out skills. The emphasis is less on improving one architecture's internal OOD generalization and more on whether a frozen model-to-model packet contract remains readable after the sender skill changes.
+
+The socket test is also operationally different from Neuralese translation and latent communication. The sender and receiver are not jointly trained end to end on every held-out skill. The held-out specialist enters a frozen packet ABI, and the same reader is tested on the resulting message.
 
 The experiment also differs from ordinary representation transfer. In representation transfer, one often asks whether a hidden state from one model can be aligned to another model's hidden state. Here the interface is not an arbitrary latent vector. It is a tiny discrete packet with a typed decoding contract. That makes the result stricter in bandwidth and more directly usable as a model-to-model interface.
 
-# 11. Conclusion
+# 11. Limitations
+
+This is not yet a general neural ABI. The held-out skills are synthetic. The packet type signature is hand-shaped. Held-out adapters are still trained with state and margin supervision. The source and held-out specialists are small, and the packet codebook is tiny by design.
+
+Those constraints are part of the claim. The experiment does not show that any arbitrary neural model can immediately speak a universal packet language. It shows a narrower result: under controlled conditions, a frozen two-slot discrete ABI can preserve readable state, confidence-like margin, and pairwise comparison signal across unrelated specialists after only local sender adaptation.
+
+The margin probe is less clean than state. It beats the empirical controls, and packet-only reading remains strong, but its variance and class-balance dependence make it supporting evidence rather than the headline result. Pair relation is cleaner under balanced accuracy, but it is still a probe of packet structure rather than the main transfer claim.
+
+# 12. Conclusion
 
 Neural tools do not have to speak English to be useful to language systems.
 
@@ -230,7 +309,7 @@ In these experiments, unrelated specialists emit two-symbol packets into a froze
 
 The result is compact and practical: a neural specialist can expose a small packet ABI, and a language-shaped model can learn to read that ABI after the skill behind the packet changes.
 
-The scanner version is that a tiny language-shaped model can plug into unfamiliar neural specialists and read their packets. The technical version is sharper: a frozen two-slot discrete ABI preserves typed state, confidence-like margin, and pairwise comparison signal across unrelated senders, with controls showing that the signal lives in the packet symbols themselves.
+The scanner version is that a tiny language-shaped model can plug into unfamiliar neural specialists and read their packets. The technical version is sharper: a frozen two-slot discrete ABI preserves strong typed state, pairwise comparison signal, and a weaker confidence-like margin across unrelated senders, with controls showing that the signal lives in the packet symbols themselves.
 
 The reason to care is not that two symbols are magical. It is that the two symbols are enough to make the boundary move. Instead of treating a neural specialist as a black box that must speak English, or a latent vector that must be swallowed whole, the socket gives it a small typed surface. That is exactly the kind of surface modular neural systems need: compact enough to standardize, expressive enough to route, compare, and compose.
 
@@ -248,6 +327,8 @@ The reason to care is not that two symbols are magical. It is that the two symbo
 
 [6] Angeliki Lazaridou, Alexander Peysakhovich, and Marco Baroni. "Multi-Agent Cooperation and the Emergence of (Natural) Language." arXiv:1612.07182, 2016.
 
-[7] Luca Moschella. "Latent Communication in Artificial Neural Networks." arXiv:2406.11014, 2024.
+[7] Dianbo Liu, Alex Lamb, Kenji Kawaguchi, Anirudh Goyal, Chen Sun, Michael C. Mozer, and Yoshua Bengio. "Discrete-Valued Neural Communication." NeurIPS, 2021.
 
-[8] Jacob Andreas, Anca Dragan, and Dan Klein. "Translating Neuralese." ACL, 2017.
+[8] Luca Moschella. "Latent Communication in Artificial Neural Networks." arXiv:2406.11014, 2024.
+
+[9] Jacob Andreas, Anca Dragan, and Dan Klein. "Translating Neuralese." ACL, 2017.
