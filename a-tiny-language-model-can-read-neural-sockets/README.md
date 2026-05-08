@@ -4,6 +4,4 @@ A tiny transformer reader trained on source socket messages decodes packets from
 
 - [Paper PDF](paper.pdf)
 - [Manuscript source](paper.md)
-- [Transfer-test schematic](figures/socket-transfer-test.svg)
-- [Main state figure](figures/reader-state-controls.svg)
-- [Typed signal figure](figures/reader-typed-summary.svg)
+- [Figures](./figures)

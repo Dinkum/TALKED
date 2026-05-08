@@ -4,3 +4,4 @@ A tiny frozen packet ABI lets unrelated neural specialists plug in through local
 
 - [Paper source](./paper.md)
 - [PDF](./paper.pdf)
+- [Figures](./figures)
