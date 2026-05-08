@@ -16,7 +16,7 @@ The surprising part is not that held-out retrieval still works. The surprising p
 
 A matched random socket does not explain the result. Across held-out skills outside the source families, the trained socket beats the random socket by 43.4 percentage points on the composite transfer score. The random control sees the same specialists, the same local adapter protocol, and the same packet size. It lacks only source-trained socket semantics.
 
-The claim is deliberately scoped: a small frozen typed ABI can act as a reusable socket for neural specialists. New skills do not need to retrain the socket. They compile into it.
+The claim is deliberately scoped: a small frozen typed ABI can act as a reusable socket for neural specialists. This is not zero-shot sender learning; it is frozen-socket transfer after local compilation. New skills do not need to retrain the socket. They compile into it.
 
 # 1. Introduction
 
@@ -102,7 +102,7 @@ $$
 \mathrm{composite} = (\mathrm{state} + \mathrm{auxiliary} + \mathrm{pair} + \mathrm{group}) / 4.
 $$
 
-For each skill, we also evaluate shuffled packets. Shuffling preserves the broad evaluation distribution while breaking symbol identity. More importantly, we run a matched random-socket control: the ABI is randomly initialized and frozen, including its state and auxiliary readers, then the same local encoder protocol is used. Nominal chance levels are 12.5% for state, 16.7% for auxiliary, 25% for pair, and 25% for group. The random-socket control is the stronger baseline because it captures what a flexible local adapter can do without a learned socket contract.
+For each skill, we also evaluate shuffled packets. Shuffling preserves the broad evaluation distribution while breaking symbol identity. These shuffled rows are empirical distribution-breaking controls, not estimates of uniform random guessing; because frozen readers can become confidently wrong after symbol identity is broken, they can fall below nominal chance. More importantly, we run a matched random-socket control: the ABI is randomly initialized and frozen, including its state and auxiliary readers, then the same local encoder protocol is used. Nominal chance levels are 12.5% for state, 16.7% for auxiliary, 25% for pair, and 25% for group. The random-socket control is the stronger baseline because it captures what a flexible local adapter can do without a learned socket contract.
 
 # 3. Method Details
 
@@ -142,7 +142,7 @@ The per-skill ranking is:
 | rank-first | 78.4% | 39.2% | 39.1% | 92.5% |
 | checksum | 51.6% | 30.1% | 21.5% | 41.9% |
 
-The checksum row is weakest. That is useful, because it keeps the story honest. This is not "everything becomes perfect." The surprising result is that the outside-source-family rows are stronger than the obvious held-out checksum row.
+The checksum row is weakest. It is included as a held-out source-family sanity check, while the headline claim is outside-source-family transfer. That weaker row is useful, because it keeps the story honest. This is not "everything becomes perfect." The surprising result is that the outside-source-family rows are stronger than the obvious held-out checksum row.
 
 Graph shortest-path is the best example. The specialist sees a graph adjacency matrix and predicts a path-length bucket. The frozen socket was trained on modular checksum and dot-product retrieval. Still, after local compilation, the frozen state reader reaches 99.7% and the frozen auxiliary reader reaches 99.6%. The random socket's composite score is 40.7%, while the trained socket reaches 86.9%.
 

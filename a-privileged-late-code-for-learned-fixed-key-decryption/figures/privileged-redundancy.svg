@@ -23,6 +23,7 @@
 <text x="442.29" y="458.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">4</text>
 <line x1="920.00" y1="92" x2="920.00" y2="434" stroke="#f3f4f6" stroke-width="1"/>
 <text x="920.00" y="458.00" text-anchor="middle" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#374151">8</text>
+<text x="502.00" y="496" text-anchor="middle" font-size="13" font-family="Helvetica, Arial, sans-serif" fill="#374151">subspace dimension</text>
 <circle cx="84.00" cy="92.35" r="4" fill="#2563eb"/>
 <circle cx="203.43" cy="92.22" r="4" fill="#2563eb"/>
 <circle cx="442.29" cy="92.24" r="4" fill="#2563eb"/>

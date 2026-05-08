@@ -12,6 +12,8 @@ Language models usually meet tools through interfaces designed for humans: names
 
 We test a smaller interface. Source-domain neural specialists train a frozen typed packet socket. Held-out specialists from unrelated skills then compile into that same socket through local adapters. A tiny transformer receiver is trained only on source socket messages and is evaluated on held-out graph shortest-path, max-index, count-positive, and rank-first packets.
 
+The receiver is trained from scratch; in this paper, "language model" means a small token-sequence transformer over packet messages, not a pretrained natural-language model.
+
 Across three independent replications, held-out packet state is read near `90%` accuracy. No-packet and shuffled controls collapse, while packet-only reading is slightly stronger than the full message.
 
 The packet carries more than a label. Across the same held-out skills, pair-relation reading stays strong and confidence-like margin remains present but weaker. A much smaller reader keeps the effect.
@@ -75,27 +77,27 @@ Four objects are deliberately separated:
 
 That separation blocks the easy interpretation. The result is not that a transformer learns a new supervised label task after seeing examples from that task. It is trained to read one family of socket messages, then tested on messages produced by different specialist computations.
 
-The receiver is a two-layer transformer over a short token sequence, trained from scratch for the packet-reading task. That choice makes the test strict: transfer has to come from the socket contract rather than background knowledge. The message contains a small prefix, separators, and the two packet symbols. In the packet-only control, the prefix and separators are masked away, leaving only the packet symbols.
+The receiver is a two-layer transformer over a short token sequence, trained from scratch for the packet-reading task. That choice makes the test strict: transfer has to come from the socket contract rather than background knowledge. The message contains wrapper tokens and the two packet symbols. In the packet-only control, the wrapper tokens are masked away, leaving only the packet symbols.
 
 The main receiver is a small two-layer token transformer. A smaller follow-up receiver is used as a capacity control.
 
 ## One Packet Trace
 
-Here is one logged held-out packet from the graph shortest-path task. The symbol names are learned packet tokens, not hand-written answer labels.
+Here is one real held-out packet trace selected only to avoid the misleading case where symbol IDs numerically match decoded labels. The symbol names are learned packet tokens, not hand-written answer labels. The wrapper tokens frame the message for the token reader; `<MASK>` hides those wrapper tokens in the packet-only control while leaving the two packet symbols visible.
 
 ```text
-task: graph_shortest_path
-input_id: graph_path_test_0
-specialist_answer: state=path_len_bucket=6, margin=margin_bucket=2
-packet: slot_1=S06, slot_2=S02
-receiver_message: <BOS> <TASK> <SENDER_0> <SEP> S06 S02
-packet_only_message: <MASK> <MASK> <MASK> <MASK> S06 S02
-frozen_decoder_output: state=path_len_bucket=6, margin=margin_bucket=2
-transformer_reader_output: state=path_len_bucket=6, margin=margin_bucket=2
-packet_only_reader_output: state=path_len_bucket=6, margin=margin_bucket=2
+task: count_positive
+input_id: count_positive_test_3066
+specialist_answer: state=count_bucket=5, margin=margin_bucket=0
+packet: slot_1=S13, slot_2=S30
+receiver_message: <BOS> <TASK> <SENDER_0> <SEP> S13 S30
+packet_only_message: <MASK> <MASK> <MASK> <MASK> S13 S30
+frozen_decoder_output: state=count_bucket=5, margin=margin_bucket=0
+transformer_reader_output: state=count_bucket=5, margin=margin_bucket=0
+packet_only_reader_output: state=count_bucket=5, margin=margin_bucket=0
 ```
 
-This is the object the experiment is about: a specialist emits two discrete symbols, the typed ABI decoder gives those symbols state and margin meaning, and the token reader consumes the same symbols as a tiny message. The packet-only control keeps exactly the two learned symbols and removes the rest.
+This is the object the experiment is about: a specialist emits two discrete symbols, the typed ABI decoder gives those symbols state and margin meaning, and the token reader consumes the same symbols as a tiny message. The packet-only control keeps exactly the two learned symbols and masks the wrapper.
 
 # 3. Experimental Setup and Controls
 
@@ -113,7 +115,7 @@ The core state-reading test asks the receiver to predict the held-out packet's t
 
 The main battery uses two checksum source senders and two dot-product retrieval source senders. The held-out side uses one sender per unrelated skill: graph shortest-path, max-index, count-positive, and rank-first. Each domain has `12,288` train examples, `3,072` validation examples, and `3,072` test examples per run.
 
-The packet has two discrete slots. Each slot has a `32`-symbol codebook, so the packet address space is `32 x 32`, and the tokenized receiver vocabulary contains `32` scaffold tokens plus `64` packet-symbol tokens. State has `8` classes. Margin has `6` classes. Pair relation has `4` classes.
+The packet has two discrete slots. Each slot has a `32`-symbol codebook, so the packet address space is `32 x 32`, and the tokenized receiver vocabulary contains `32` wrapper and control tokens plus `64` packet-symbol tokens. State has `8` classes. Margin has `6` classes. Pair relation has `4` classes.
 
 The source ABI is a straight-through discrete encoder with separate frozen MLP decoders for state and margin. It is trained for `72` epochs with AdamW at learning rate `1e-3`, batch size `1024`, hidden dimension `160`, and a source ABI training budget of `6,144` examples per source sender. The main loss is state and margin cross-entropy through the two-slot packet, with auxiliary slot anchors for state and margin and a small usage-entropy term.
 
@@ -134,7 +136,7 @@ The controls decide whether the reader learned the packet or merely learned the 
 | shuffled | packet-shaped inputs remain, but symbol identity is broken | gains from packet-looking syntax alone |
 | packet only | every non-packet token is masked; only the two packet symbols remain | reliance on prefix, separators, or task text |
 
-The packet-only control is the sharpest one. It removes the message scaffold, separator tokens, and prefix tokens. If packet-only reading works, the result is not riding on the prompt wrapper.
+The packet-only control is the sharpest one. It masks the message wrapper and leaves only the two packet symbols. If packet-only reading works, the result is not riding on the prompt wrapper.
 
 The shuffled control is different. It preserves the packet-shaped input format while breaking symbol identity. That catches a weaker failure mode: a model could learn that the existence of two packet-looking tokens predicts a task prior without learning the packet symbols themselves. The no-packet and shuffled controls fail for state reading, while packet-only stays strong.
 
@@ -185,6 +187,8 @@ Margin matters because a specialist interface should not expose only its final b
 
 The pair-relation probe is the more compositional diagnostic. The reader receives two packets and predicts a relation that depends on both. This is not the same as decoding one packet twice and printing two answers; it asks whether packet-coded state and margin structure can be compared inside the receiver.
 
+\newpage
+
 ![Mean accuracy across state, margin, and pair-relation probes. State is the cleanest result; margin and pair relation show that the packet carries additional typed structure.](./figures/reader-typed-summary.svg){ width=100% }
 
 The table reports mean accuracy over three independent replications, with standard deviation in parentheses.
@@ -195,7 +199,7 @@ The table reports mean accuracy over three independent replications, with standa
 | margin | `16.7%` | `55.7 (10.5)%` | `8.9 (11.0)%` | `13.5 (5.1)%` | `66.6 (2.0)%` |
 | pair relation | `25.0%` | `61.7 (3.8)%` | `25.2 (0.9)%` | `36.4 (4.5)%` | `63.5 (2.2)%` |
 
-A fresh-seed class-balance pass gives the weaker numbers their context. Parentheses are again standard deviations over three seeds. State and pair remain well above majority and chance under balanced accuracy. Margin is close to the majority baseline in raw accuracy, so the conservative reading is that margin is a weaker auxiliary field rather than a second state-like channel.
+A separate fresh-seed diagnostic pass gives the weaker numbers their class-balance context. It uses a different three-seed run than the headline table above, so the `78.6%` state row is a calibration result rather than a conflicting copy of the `87.7%` headline result. State and pair remain well above majority and chance under balanced accuracy. Margin is close to the majority baseline in raw accuracy, so the conservative reading is that margin is a weaker auxiliary field rather than a second state-like channel.
 
 | target | socket accuracy | balanced accuracy | majority | chance |
 |---|---:|---:|---:|---:|
@@ -271,7 +275,7 @@ Together, these probes show the socket acting as more than a readout. It can be 
 
 The packet reader receives a compact specialist message. A prompt-to-packet caller has a harder job: it sees command-like tokens plus raw inputs and must emit a packet that the frozen ABI decoders will interpret correctly. That caller is trying to solve the specialist task and speak the socket at the same time.
 
-A prompt-to-packet control trained a tiny transformer caller through the frozen ABI decoders. It barely improved over the no-command control.
+A prompt-to-packet control trained a tiny transformer caller through the frozen ABI decoders. It reached `18.8%` mean state accuracy, versus `16.8%` with no command and `14.4%` with the wrong command, for only a `2.0` point lift over no-command.
 
 That boundary favors a router-reader architecture. The neural specialist emits the packet; the language-facing model reads, routes, compares, or explains it. The packet socket is strongest when it connects models, not when it asks the reader to replace the model that produced the evidence.
 
@@ -309,7 +313,7 @@ In these experiments, unrelated specialists emit two-symbol packets into a froze
 
 The result is compact and practical: a neural specialist can expose a small packet ABI, and a language-shaped model can learn to read that ABI after the skill behind the packet changes.
 
-The scanner version is that a tiny language-shaped model can plug into unfamiliar neural specialists and read their packets. The technical version is sharper: a frozen two-slot discrete ABI preserves strong typed state, pairwise comparison signal, and a weaker confidence-like margin across unrelated senders, with controls showing that the signal lives in the packet symbols themselves.
+The short version is that a tiny language-shaped model can plug into unfamiliar neural specialists and read their packets. The technical version is sharper: a frozen two-slot discrete ABI preserves strong typed state, pairwise comparison signal, and a weaker confidence-like margin across unrelated senders, with controls showing that the signal lives in the packet symbols themselves.
 
 The reason to care is not that two symbols are magical. It is that the two symbols are enough to make the boundary move. Instead of treating a neural specialist as a black box that must speak English, or a latent vector that must be swallowed whole, the socket gives it a small typed surface. That is exactly the kind of surface modular neural systems need: compact enough to standardize, expressive enough to route, compare, and compose.
 

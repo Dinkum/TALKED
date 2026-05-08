@@ -1,5 +1,5 @@
 ---
-title: "Compiled Model Esperanto: A Frozen Latent ABI for Neural Specialists"
+title: "Compiling Neural Specialists into a Latent ABI"
 author:
   - "github.com/Dinkum (Blake)"
 date: "2026-04-25"

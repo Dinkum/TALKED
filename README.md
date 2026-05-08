@@ -4,7 +4,7 @@
 
 [A Privileged Late Code for Learned Fixed-Key Decryption](./a-privileged-late-code-for-learned-fixed-key-decryption/README.md) - A mechanistic study of compact, patchable, late decryptor codes inside redundant trained representations.
 
-[Compiled Model Esperanto: A Frozen Latent ABI for Neural Specialists](./compiled-model-esperanto-a-frozen-latent-abi-for-neural-specialists/README.md) - A controlled test of frozen low-bandwidth latent packet interfaces across held-out neural specialist domains and architectures.
+[Compiling Neural Specialists into a Latent ABI](./compiled-model-esperanto-a-frozen-latent-abi-for-neural-specialists/README.md) - A focused checksum-to-retrieval test of local compilation into a fixed latent packet ABI, with shuffled-symbol controls and symbol interventions.
 
 [A Frozen Socket for Neural Specialists](./a-frozen-socket-for-neural-specialists/README.md) - A tiny frozen packet ABI that lets unrelated neural specialists plug in through local encoders while a matched random socket does not recover the trained socket's semantics.
 
