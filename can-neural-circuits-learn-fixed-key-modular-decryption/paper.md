@@ -7,13 +7,13 @@ date: "2026-04-10"
 
 # Abstract
 
-Can a small neural network learn to decrypt for one fixed secret key just from examples, and if it can, what exactly leaks once the model works? We study this question in a controlled Learning With Errors (LWE)-style benchmark where the key, public matrix, and encryption rule are fixed, the data are clean, and the only learning problem is to map ciphertexts back to the hidden bit. The benchmark is tiny by design: tiny regimes are where we can name the mechanism. We are testing whether a model can internalize one keyed modular circuit.
+Can a small neural network learn to decrypt for one fixed secret key just from examples, and if it can, what exactly leaks once the model works? We study this question in a controlled Learning With Errors (LWE)-style benchmark where the key, public matrix, and encryption rule are fixed, the data are clean, and the only learning problem is to map ciphertexts back to the hidden bit. The benchmark is tiny by design: tiny regimes are where we can name the mechanism. This is not a cryptographic security claim; it is a fixed-instance learning and leakage microscope for one keyed modular circuit.
 
-The answer is yes, but only for the right circuit family. In our main clean regime, `n=4, q=17`, small attention-based models fail, including tokenized decoder-style transformers, direct transformer classifiers, modulo-aware one-hot transformer classifiers, and a hybrid transformer with a learned modulo frontend. In contrast, a one-hot MLP and a DeepSets-style model with nonlinear local lifts followed by sum aggregation solve the task almost perfectly. An additive residue-table model fails, so the winner is not just a linear sum of per-residue lookups.
+The answer is yes, but only for the right circuit family. In our main clean regime, `n=4, q=17`, the tested small attention family remains at chance across tokenized decoder-style, direct classifier, modulo-aware one-hot, and hybrid modulo-front-end variants. In contrast, a one-hot MLP and a DeepSets-style model with nonlinear local lifts followed by sum aggregation solve the task almost perfectly. That architecture split creates the main object of study: once a keyed circuit is learned, what leaks first?
 
 Once the task is solved, the leakage story is asymmetric. The winning DeepSets family is strongly key-bound: self-key accuracy is near-perfect while cross-key transfer collapses to chance. Black-box function stealing is delayed rather than instant, with surrogates staying at chance through `20,000` random oracle queries before jumping at `200,000`. A stronger manifest-backed boundary attack consistently puts the planted secret at rank `1` within tied perfect-candidate classes, but still leaves large ambiguity classes rather than a unique literal key. Inside a trained winner, the penultimate activated state exposes the latent decryptor almost linearly: simple probes recover the decryptor value $d = v - \langle s, u \rangle \bmod q$ and the output bit with about `99.5%-99.9%` accuracy. Across a zoo of independently trained winners, raw weights, fixed-query activation signatures, and fixed-query `d`-transcript signatures still do not yield usable literal secret recovery. Low-budget structured surrogate stealing also stays at chance, and a low-rank activated-state patch that can edit one secret does not retarget to a fresh unrelated key. Finally, the positive regime is bounded but structured: the winner remains near-saturated across moderate noise levels at `q=17`, while a small `q`/width boundary sweep shows that wider DeepSets models fully rescue `q=23` but only partially rescue `q=31`.
 
-Taken together, these results point to a cleaner conclusion than the original “transformers hiding keys” story. Fixed-key modular decryption is learnable, but success is architecture-dependent, the winning computation is closer to a nonlinear additive set circuit than to small attention, and capability leakage plus late-state leakage are much easier than literal secret extraction.
+These results point to a cleaner conclusion than the original “transformers hiding keys” story. Fixed-key modular decryption is learnable, but the main contribution is the leakage ordering: capability cloning and late-state decryptor leakage appear well before literal secret extraction.
 
 # 1. Introduction
 
@@ -28,7 +28,7 @@ This is a benchmark for learnability and extractability of keyed modular computa
 The resulting picture is sharp:
 
 - Clean fixed-key modular decryption is learnable at `n=4, q=17, sigma=0`.
-- The winning family is not small attention. It is a nonlinear local-lift plus sum-aggregation circuit.
+- Small attention is the wrong fit here; the winning family is a nonlinear local-lift plus sum-aggregation circuit.
 - The learned solution is strongly key-specific.
 - Leakage is asymmetric: late internal states expose decryptor-equivalent information more readily than literal key recovery.
 - The phenomenon has a real boundary; a modest move in modulus already changes the picture.
@@ -170,7 +170,7 @@ We trained several model families to predict the target bit directly from cipher
 
 The comparison is designed to answer three different questions.
 
-First, is the task simply a linear classifier in disguise? Second, if attention fails, is the problem just tokenization or objective mismatch? Third, if a non-attention model wins, what is the minimal computational pattern that seems to match the decryptor?
+First, is the task simply a linear classifier in disguise? Second, if the tested small attention family fails, is the problem just tokenization or objective mismatch? Third, if a non-attention model wins, what is the minimal computational pattern that seems to match the decryptor?
 
 That last question ended up mattering most. The winning model family is not just “the one that happened to train.” It reflects the underlying structure of the task.
 
@@ -201,7 +201,7 @@ Hybrid modulo transformer & One-hot residues + local lift & Attention & 445,185 
 
 ## 4.1 Which Family Actually Solves the Task?
 
-The first result that matters is not the transformer failure. It is the identity of the winner.
+The headline result is the winner's shape, not the attention result.
 
 ![Circuit-style family comparison](./figures/circuit-baselines.svg){ width=95% }
 
@@ -212,7 +212,7 @@ On clean `n=4`:
 - a one-hot MLP also solves the task
 - the hybrid modulo transformer remains flat
 
-This pins down the successful computation family more clearly than a generic “neural nets can do it” headline would. Pure additive tables are too weak, so the solution is not just a linear sum of per-residue scores. But a nonlinear local lift followed by sum aggregation works almost perfectly. That is much closer to a small categorical arithmetic circuit than to content-based routing.
+This pins down the successful computation family more clearly than a generic “neural nets can do it” headline would. Pure additive tables are too weak, ruling out a bare linear sum of per-residue scores. A nonlinear local lift followed by sum aggregation, however, works almost perfectly. That is much closer to a small categorical arithmetic circuit than to content-based routing.
 
 ## 4.2 The Tested Small Attention Family Remains the Wrong Bias in This Regime
 
@@ -222,7 +222,7 @@ We then asked whether the negative transformer result was just a bad input repre
 
 Across tokenized, numeric, modulo-aware, and hybrid-front-end variants, the tested small attention models remained at chance on the same clean `n=4` task. The hybrid result is especially informative: even after giving attention a learned modulo-aware frontend, the model still failed.
 
-The important point is not that we found one bad transformer configuration. It is that the gap survived several increasingly charitable formulations. In this regime, the tested small attention family appears to be the wrong inductive bias for the decryptor.
+The important evidence is the pattern across increasingly charitable formulations. In this regime, the tested small attention family appears to be the wrong inductive bias for the decryptor.
 
 ## 4.3 The Winning Solution Is Key-Bound
 
@@ -235,7 +235,7 @@ The result is decisive:
 - mean self-key accuracy: `99.95%`
 - mean cross-key accuracy: `50.15%`
 
-Each model solves its own key almost perfectly and collapses to chance on other keys. The winner is therefore not merely regime-aware. It is genuinely key-bound.
+Each model solves its own key almost perfectly and collapses to chance on other keys. Rather than merely regime-aware, the winner is genuinely key-bound.
 
 ## 4.4 The Positive Regime Is Narrow, Not Broad
 
@@ -254,7 +254,7 @@ The sweep shows:
 - `q=31`, width `128`: `50.33%`
 - `q=31`, width `256`: `74.43%`
 
-All three settings verified cleanly with `0 / 5000` scheme failures. So this is not a data-quality cliff. It is a learnability cliff. More width fully rescues `q=23`, but only partially rescues `q=31`. This turns smallness into a diagnostic: the boundary is about circuit fit, not label noise or broken data.
+All three settings verified cleanly with `0 / 5000` scheme failures. The cliff is learnability, not data quality. More width fully rescues `q=23`, but only partially rescues `q=31`. This turns smallness into a diagnostic: the boundary is about circuit fit, not label noise or broken data.
 
 # 5. Leakage Hierarchy
 
@@ -412,7 +412,7 @@ The result stayed essentially unchanged:
 - held-out `A_1`: `99.87%`
 - held-out `A_2`: `99.86%`
 
-This does not turn the paper into a many-instance generalization claim. It does rule out the simplest overfit story. At fixed secret and distributional family, the winner transfers almost perfectly across fresh public matrices.
+This does not establish a many-instance generalization claim. It does rule out the simplest overfit story. At fixed secret and distributional family, the winner transfers almost perfectly across fresh public matrices.
 
 ## 6.2 Local Editability Does Not Imply Re-Keyability
 
@@ -443,9 +443,9 @@ This paper borrows the syntax of Regev-style LWE encryption [1], but it is not a
 
 The closest machine-learning attacks on LWE are the SALSA/PICANTE/VERDE line [3,4,5]. Those works use learned components plus cryptanalytic preprocessing to recover sparse or small LWE secrets at larger dimensions under specific secret distributions. Our setting is narrower in one sense and different in another: the main secret is uniform over $\mathbb{Z}_q^n$, the regime is tiny and clean, and the object under study is not a production attack but the separation between learning a fixed decryptor, cloning its behavior, collapsing the secret to an ambiguity class, and recovering the literal secret.
 
-The architecture result also sits near work on neural modular arithmetic and grokking [6,7,8]. Those papers show that neural networks and small transformers can learn modular rules and sometimes reveal interpretable Fourier-like structure. Here the task is not a standalone modular addition or multiplication table. It is a fixed-key decryption circuit built from sampled LWE rows, a hidden secret, a subset-sum encryption map, and a threshold decision over the decrypted residue. That is why the architecture split matters: one-hot MLPs and DeepSets-style nonlinear set aggregation solve the benchmark, while the tested small attention family does not.
+The architecture result also sits near work on neural modular arithmetic and grokking [6,7,8]. Those papers show that neural networks and small transformers can learn modular rules and sometimes reveal interpretable Fourier-like structure. Unlike a standalone modular addition or multiplication table, this task is a fixed-key decryption circuit built from sampled LWE rows, a hidden secret, a subset-sum encryption map, and a threshold decision over the decrypted residue. That is why the architecture split matters: one-hot MLPs and DeepSets-style nonlinear set aggregation solve the benchmark, while the tested small attention family does not.
 
-The winning DeepSets-style circuit is related to the permutation-invariant architecture of Zaheer et al. [9]. We use that idea in a deliberately arithmetic way: lift local residue features nonlinearly, aggregate by summation, and classify the resulting pooled state. The result does not say DeepSets is generally best for modular reasoning; it says this fixed-key decryptor has a structure that the local-lift plus sum pattern matches well.
+The winning DeepSets-style circuit is related to the permutation-invariant architecture of Zaheer et al. [9]. We use that idea in a deliberately arithmetic way: lift local residue features nonlinearly, aggregate by summation, and classify the resulting pooled state. This result is narrower than a general claim about DeepSets and modular reasoning: this fixed-key decryptor has a structure that the local-lift plus sum pattern matches well.
 
 Finally, the leakage analysis uses familiar interpretability tools. Linear probes follow the basic idea of training readouts on frozen internal features [10]. The local edit and patch-style controls are in the same family as activation patching and causal tracing methods [11], although this paper's main patch result is a compact control rather than a full causal-circuit study. The follow-on late-code paper takes that causal question more directly.
 
@@ -453,9 +453,9 @@ Finally, the leakage analysis uses familiar interpretability tools. Linear probe
 
 ## 8.1 What The Paper Shows
 
-The most faithful summary is not “transformers can hide keys in weights.” That framing is too vague and, for this benchmark, largely misses the point.
+The phrase “transformers can hide keys in weights” is too vague for this benchmark and largely misses the point.
 
-What the paper shows is more specific:
+The evidence is more specific:
 
 - a neural model can learn a fixed-key modular decryptor in a clean nontrivial regime
 - the right inductive bias matters a lot
@@ -481,18 +481,18 @@ The most interesting outcome is that different notions of “recovery” separat
 - collapsing the secret to a narrow ambiguity class is easier than exact literal recovery
 - probing the internal computation of one trained winner exposes decryptor state more easily than literal secret structure across many winners
 
-That makes the benchmark useful as a controlled leakage microscope. The right question is not whether a model can become a perfect hidden-key box. It is what form of leakage appears first once a keyed circuit is learned.
+That makes the benchmark useful as a controlled leakage microscope. The benchmark shifts attention from perfect hidden-key boxes to the form of leakage that appears first once a keyed circuit is learned.
 
 # 9. Limitations
 
-The strongest positive results live in tiny clean regimes. That is the methodological choice of the paper. The main remaining limits are:
+The strongest positive results live in tiny clean regimes, where the architecture split and leakage hierarchy are easiest to isolate. The main remaining limits are:
 
 - The attention comparison is broad enough to be meaningful, but not exhaustive.
 - Our chosen-query attacks show ambiguity-class collapse, but they are still not full cryptanalysis.
 - The weight and activation meta-extraction results are negative only for the probes we tried.
 - The positive same-secret fresh-`A` transfer result does not by itself turn this into a many-instance generalization paper.
 - The local key-edit result and the negative cross-key retargeting result are both specific to the tested low-rank intervention path.
-- A side shared-trunk plus tiny keyed-adapter factorization probe also stayed weak; we keep it in Appendix A.6 rather than in the main paper arc.
+- A side shared-trunk plus tiny keyed-adapter factorization probe also stayed weak; we keep it in Appendix A.6 rather than in the main text.
 
 Two follow-on questions now look most natural. One is causal: decode the penultimate decryptor subspace, ablate it, and measure how the classifier collapses. The other is comparative: turn the leakage ordering in this benchmark into a dedicated follow-on paper about what leaks first and what remains stubbornly hard.
 
@@ -509,7 +509,7 @@ Our answer is:
 
 In our benchmark, the winning family is a nonlinear additive set circuit. Capability theft is possible but delayed. Boundary attacks can collapse the secret to a narrow ambiguity class without uniquely recovering it. The penultimate state of a trained winner almost linearly exposes the decryptor itself. Raw weights and fixed-query cross-model signatures, by contrast, are far less cooperative.
 
-That is a more interesting result than the original transformer-centric story. It suggests that the real science lives in the gap between learning a keyed function, emulating that function, and extracting the literal secret.
+The result is more interesting than the original transformer-centric story. It suggests that the real science lives in the gap between learning a keyed function, emulating that function, and extracting the literal secret.
 
 # References
 

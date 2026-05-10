@@ -1,26 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520">
   <rect width="1120" height="520" fill="#ffffff"/>
-  <text x="42" y="52" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#111827">A frozen neural socket for new skills</text>
+  <text x="42" y="54" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#111827">A frozen neural socket for new skills</text>
 
   <rect x="50" y="128" width="245" height="80" rx="8" fill="#f7fafc" stroke="#cbd5e1"/>
-  <text x="72" y="158" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Source specialist 1</text>
-  <text x="72" y="184" font-family="Arial, sans-serif" font-size="14" fill="#374151">modular checksum</text>
+  <text x="72" y="158" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#111827">Source specialist 1</text>
+  <text x="72" y="184" font-family="Arial, sans-serif" font-size="15" fill="#374151">modular checksum</text>
 
   <rect x="50" y="232" width="245" height="80" rx="8" fill="#f7fafc" stroke="#cbd5e1"/>
-  <text x="72" y="262" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Source specialist 2</text>
-  <text x="72" y="288" font-family="Arial, sans-serif" font-size="14" fill="#374151">dot-product retrieval</text>
+  <text x="72" y="262" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#111827">Source specialist 2</text>
+  <text x="72" y="288" font-family="Arial, sans-serif" font-size="15" fill="#374151">dot-product retrieval</text>
 
   <path d="M305 168 C365 168 372 250 430 250" fill="none" stroke="#64748b" stroke-width="2.5"/>
   <path d="M305 272 C365 272 372 250 430 250" fill="none" stroke="#64748b" stroke-width="2.5"/>
   <polygon points="430,250 418,243 418,257" fill="#64748b"/>
 
   <rect x="442" y="152" width="236" height="196" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
-  <text x="474" y="190" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#115e59">Frozen packet ABI</text>
-  <text x="474" y="220" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">2 code slots</text>
-  <text x="474" y="244" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">32 symbols per slot</text>
-  <text x="474" y="268" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">state reader</text>
-  <text x="474" y="292" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">auxiliary reader</text>
-  <text x="474" y="316" font-family="Arial, sans-serif" font-size="14" fill="#134e4a">pair/group semantic heads</text>
+  <text x="474" y="190" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#115e59">Frozen packet ABI</text>
+  <text x="474" y="220" font-family="Arial, sans-serif" font-size="15" fill="#134e4a">2 code slots</text>
+  <text x="474" y="244" font-family="Arial, sans-serif" font-size="15" fill="#134e4a">32 symbols per slot</text>
+  <text x="474" y="268" font-family="Arial, sans-serif" font-size="15" fill="#134e4a">state reader</text>
+  <text x="474" y="292" font-family="Arial, sans-serif" font-size="15" fill="#134e4a">auxiliary reader</text>
+  <text x="474" y="316" font-family="Arial, sans-serif" font-size="15" fill="#134e4a">pair/group heads</text>
 
   <path d="M684 250 C730 250 740 168 786 168" fill="none" stroke="#64748b" stroke-width="2.5"/>
   <path d="M684 250 C730 250 740 250 786 250" fill="none" stroke="#64748b" stroke-width="2.5"/>
@@ -30,17 +30,17 @@
   <polygon points="786,332 774,325 774,339" fill="#64748b"/>
 
   <rect x="804" y="116" width="260" height="68" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="826" y="145" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Graph shortest-path</text>
-  <text x="826" y="168" font-family="Arial, sans-serif" font-size="13" fill="#374151">99.7% state through the frozen socket</text>
+  <text x="826" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Graph shortest-path</text>
+  <text x="826" y="168" font-family="Arial, sans-serif" font-size="14" fill="#374151">99.7% state via socket</text>
 
   <rect x="804" y="206" width="260" height="68" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="826" y="235" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Max-index, count, rank</text>
-  <text x="826" y="258" font-family="Arial, sans-serif" font-size="13" fill="#374151">92.5-95.0% state transfer</text>
+  <text x="826" y="235" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Max-index, count, rank</text>
+  <text x="826" y="258" font-family="Arial, sans-serif" font-size="14" fill="#374151">92.5-95.0% state</text>
 
   <rect x="804" y="296" width="260" height="68" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="826" y="325" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Different retrieval architecture</text>
-  <text x="826" y="348" font-family="Arial, sans-serif" font-size="13" fill="#374151">95.2% state, 87.3% auxiliary</text>
+  <text x="826" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Different retrieval architecture</text>
+  <text x="826" y="348" font-family="Arial, sans-serif" font-size="14" fill="#374151">95.2% state, 87.3% aux</text>
 
   <line x1="442" y1="388" x2="678" y2="388" stroke="#e11d48" stroke-width="2" stroke-dasharray="7 7"/>
-  <text x="450" y="416" font-family="Arial, sans-serif" font-size="13" fill="#9f1239">Matched random socket cannot recover source-trained packet semantics.</text>
+  <text x="450" y="416" font-family="Arial, sans-serif" font-size="15" fill="#9f1239">Matched random socket lacks source-trained packet semantics.</text>
 </svg>

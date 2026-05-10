@@ -68,13 +68,13 @@ We compare four basis families:
 - PCA
 - matched random subspaces
 
-We test the candidate code along five axes: where it appears, whether it is privileged over generic low-rank directions, whether patching it changes behavior, whether the complement remains informative, and whether the pattern survives across independently trained winners. Repeated keep-only summaries are protocol-specific: localization, basis comparison, and complement geometry are separate retained analyses, so nearby 1D numbers should not be read as re-reports of one estimate. Together, these tests separate the privileged-code claim from five weaker explanations:
+We test the candidate code along five axes: where it appears, whether it is privileged over generic low-rank directions, whether patching it changes behavior, whether the complement remains informative, and whether the pattern survives across independently trained winners. Repeated keep-only summaries are protocol-specific: localization, basis comparison, and complement geometry are separate retained analyses, so nearby 1D numbers should not be read as re-reports of one estimate. We also use one checkpoint trajectory as a timing sanity check, asking whether compact-code behavior and complement readout appear before or alongside task competence. Together, these tests separate the privileged-code claim from five weaker explanations:
 
-- **Late localization:** pooled and normalized keep-only runs stay near chance, while activated 1D/2D keep-only reaches 99.45%-99.64%. The compact code is not a generic early statistic.
-- **Basis comparison:** probe-derived bases preserve behavior where PCA and matched random controls fail. The effect is not "any low-rank basis works."
-- **Causal under patching:** full swaps go donor-side, random swaps stay recipient-side, and probe-derived swaps induce donor-directed transfer. The directions are not merely probe-readable correlates.
-- **Complement geometry:** complement removal hurts frozen-head behavior, but the complement remains linearly readable. The model does not use a unique tiny bottleneck.
-- **Stable:** full/random ordering is stable across seeds, while privileged-subspace donor strength varies. The result is not a one-winner artifact, but the geometry is not seed-identical either.
+- **Late localization:** pooled and normalized keep-only runs stay near chance, while activated 1D/2D keep-only reaches 99.45%-99.64%. The compact code localizes to the final activated state rather than a generic early statistic.
+- **Basis comparison:** probe-derived bases preserve behavior where PCA and matched random controls fail. The effect depends on probe-aligned directions, rather than arbitrary low-rank bases.
+- **Causal under patching:** full swaps go donor-side, random swaps stay recipient-side, and probe-derived swaps induce donor-directed transfer. The directions act as interventional handles, not only probe-readable correlates.
+- **Complement geometry:** complement removal hurts frozen-head behavior, but the complement remains linearly readable, which rules out a unique tiny bottleneck.
+- **Stable:** full/random ordering is stable across seeds, while privileged-subspace donor strength varies. The pattern is reproducible as an ordering, with seed-variable geometry.
 
 ![Mechanistic claim and evidence chain](./figures/mechanism-schematic.svg){ width=95% }
 
@@ -93,7 +93,7 @@ Across four winners in the localization sweep:
 - activated mean 1D keep-only accuracy: 99.45%
 - activated mean 2D keep-only accuracy: 99.64%
 
-The contrast rules out the generic-early-statistic explanation in the tested setup. The compact representation is not merely carried forward from pooled or normalized views; it is organized at the final stage of the learned computation.
+The contrast rules out the generic-early-statistic explanation in the tested setup. The compact representation appears to be organized at the final stage of the learned computation rather than merely carried forward from pooled or normalized views.
 
 # 4. Probe-Aligned Directions Are Privileged
 
@@ -157,7 +157,7 @@ For the same probe-derived bases in the complement-geometry run:
 
 The privileged subspace matters to the frozen model, but the removed complement is not empty. It can still support near-perfect fresh linear beta readout. The mechanism is therefore asymmetric rather than exclusive: a compact code carries decryptor state with unusual behavioral efficiency, while the broader representation keeps enough backup structure to remain informative after removal.
 
-That redundancy is not a nuisance. It is the reason the result is plausible. A compact privileged code with backup structure is a more plausible learned object than a perfectly isolated chokepoint. A merely probe-readable cloud would be weak. The observed object is sharper: a privileged carrier embedded in a redundant late state.
+The redundancy makes the result more plausible. A compact privileged code with backup structure is a more plausible learned object than a perfectly isolated chokepoint. A merely probe-readable cloud would be weak; the observed object is sharper: a privileged carrier embedded in a redundant late state.
 
 # 7. Stable in Kind, Variable in Strength
 
@@ -185,7 +185,7 @@ The privileged subspace remains real on average, but its strength varies:
 
 The complement tells the other half of the story: it can still affect output behavior without reliably carrying the donor decryptor state.
 
-This is not the same tiny plane appearing identically in every model. It is a stable mechanistic pattern with variable downstream magnitude. Full swaps, random controls, and probe-derived subspaces keep the same qualitative ordering; the amount of donor control carried by the privileged subspace changes across winners.
+The same qualitative ordering appears without requiring the identical tiny plane in every model. Full swaps, random controls, and probe-derived subspaces keep the same qualitative ordering; the amount of donor control carried by the privileged subspace changes across winners.
 
 # 8. Discussion: Privileged Code, Not Bottleneck
 
@@ -195,28 +195,28 @@ First, the code is late-localized. Earlier internal states do not support useful
 
 Second, it is privilegedly compact. Probe-derived directions preserve behavior at dimensions where PCA and random controls remain near chance.
 
-Third, it is causal under the benchmark's class-flip patching intervention. Full swaps go donor-side, random matched subspaces stay recipient-side, and targeted probe-derived swaps move both the latent decryptor and the output in the donor direction.
+Third, it is causal under the class-flip patching intervention. Full swaps go donor-side, random matched subspaces stay recipient-side, and targeted probe-derived swaps move both the latent decryptor and the output in the donor direction.
 
 Fourth, it is redundant rather than exclusive. The complement is weaker for the frozen head but still contains substantial readout signal.
 
-Fifth, it is seed-stable as a phenomenon and seed-variable as a strength. That is the right level of claim.
+Fifth, seed stability holds at the level of the phenomenon, while strength remains seed-variable.
 
 A checkpoint run adds a timing check. The code does not appear long before competence, and redundancy does not appear only after competence. In the observed training trajectory, full-model accuracy, 1D keep-only behavior, and complement readout rise together between the weak early checkpoint and the solved model.
 
-## 8.1 What The Evidence Does Not Support
+## 8.1 Stronger Readings The Evidence Rules Out
 
-The results do not show that fixed-key decryption lives in a universal 1D/2D bottleneck. The seed expansion argues against that reading.
+The seed expansion argues against treating fixed-key decryption as a universal 1D/2D bottleneck.
 
-They also do not show a general latent-distance theory of the decryptor. In this $q=17$ clean support, patching is a class-flip faithfulness test between the two supported decryptor values.
+The class-flip patching setup should not be read as a general latent-distance theory of the decryptor.
 
-Finally, they do not show that every useful aspect of the trained representation is captured by the compact subspace. The complement remains informative, and the seed battery shows variable downstream reliance on the privileged code. The claim is internal and mechanistic: this trained decryptor family develops a compact causal carrier inside a larger late representation.
+The compact subspace also captures only part of the useful trained representation. The complement remains informative, and the seed battery shows variable downstream reliance on the privileged code. The claim is internal and mechanistic: this trained decryptor family develops a compact causal carrier inside a larger late representation.
 
 # 9. Limitations
 
 The regime is small: clean fixed-key $n=4, q=17, \sigma=0$. That smallness is the method, not an apology; it is what makes the causal object legible. The remaining limits are:
 
 - The source models all come from one successful architecture family.
-- The patch-faithfulness setup is constrained by the $q=17$ support and should not be read as a full latent-distance sweep.
+- The patch-faithfulness setup is a class-flip test rather than a full latent-distance sweep.
 - The seed battery supports a stable phenomenon with variable strength, not seed-invariant geometry.
 - The complement readout result means the code is privileged, not exclusive.
 
@@ -224,6 +224,6 @@ The regime is small: clean fixed-key $n=4, q=17, \sigma=0$. That smallness is th
 
 A trained fixed-key decryptor exposes useful late-state information almost linearly, but that fact alone does not identify a mechanism. The patching experiments make the claim causal in the class-flip intervention sense.
 
-The model does not hide the computation in a single magic direction. It also does not distribute it so diffusely that every direction is equivalent. It builds a privileged late carrier: small enough to patch, efficient enough to beat PCA, and redundant enough to survive damage.
+The computation lands between two unhelpful extremes: a single magic direction and a representation where every direction is equivalent. The model builds a privileged late carrier: small enough to patch, efficient enough to beat PCA, and redundant enough to survive damage.
 
-That is the mechanistic object this paper identifies: a compact late code for learned fixed-key decryption, far more effective per patched dimension than generic subspaces, embedded inside a broader redundant representation.
+The mechanistic object is a compact late code for learned fixed-key decryption, far more effective per patched dimension than generic subspaces, embedded inside a broader redundant representation.

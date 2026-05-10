@@ -9,13 +9,13 @@ date: "2026-04-25"
 
 When neural specialists are connected into larger systems, they usually communicate through human-facing artifacts: text, JSON, tool calls, logits, or full hidden-state dumps. Each interface loses something. Text is expressive but bulky. Logits are narrow. Raw hidden states are model-native, but coordinate-private: a vector that means one thing inside one model may mean nothing inside another.
 
-This paper asks whether there is a usable middle object: a small latent packet interface that is native enough to carry internal semantics, but stable enough that other models can learn to use it. The answer is not spontaneous Esperanto. Independently trained models do not expose a shared language for free. But compatible specialists can be compiled into one.
+This paper asks whether there is a usable middle object: a small latent packet interface that is native enough to carry internal semantics, but stable enough that other models can learn to use it. The answer is compiled communication rather than spontaneous Esperanto: independently trained models do not expose a shared language for free, but compatible specialists can be compiled into one.
 
-We train a frozen discrete packet ABI on modular checksum specialists, then introduce retrieval/ranking specialists from a different domain. Retrieval models are not allowed to change the language. They only learn small sender-local compilers into the frozen packet space. The message is tiny: two discrete choices from a 32-symbol vocabulary, or 10 bits of symbolic bandwidth.
+We train a frozen discrete packet ABI on modular checksum specialists, then introduce retrieval/ranking specialists from a different domain. Retrieval models keep the language fixed and learn only small sender-local compilers into the frozen packet space. The message is tiny: two discrete choices from a 32-symbol vocabulary, or 10 bits of symbolic bandwidth.
 
 The checksum-trained ABI transfers. Frozen checksum decoders recover retrieval state and confidence/margin far above shuffled-symbol controls in two independent runs; a different candidate-wise retrieval architecture also compiles into the same ABI. Symbol interventions move decoded semantics in stable directions. Pair and set/ranking composition transfer above shuffled controls, but remain less robust than single-example state and margin.
 
-Taken together, these results support a concrete claim: a frozen latent ABI can preserve state and confidence semantics across held-out senders, domains, and architectures after local compilation. This is not spontaneous Esperanto. It is a reusable interface.
+The results support a concrete claim: a frozen latent ABI can preserve state and confidence semantics across held-out senders, domains, and architectures after local compilation. The object is a reusable interface, not spontaneous Esperanto.
 
 # 1. Introduction
 
@@ -23,7 +23,7 @@ Modern model systems talk through interfaces built for us. They emit text, call 
 
 The missing object is a shared latent interface: small enough to be useful, semantic enough to be testable, and stable enough to survive model swaps.
 
-There is an obvious fantasy version of this idea: train two models independently and hope they naturally speak the same hidden language. That is the wrong standard. Real interfaces do not work that way. CPUs do not naturally speak C; programs are compiled. Devices do not naturally speak a high-level API; they implement a protocol. The stable object is the interface contract, not the absence of adaptation.
+One tempting version of this idea asks two independently trained models to naturally share a hidden language. That standard asks for the wrong object. Real interfaces usually come from compilation or protocol implementation. CPUs reach C through compilers; devices expose APIs through protocols. The stable object is the interface contract, not the absence of adaptation.
 
 This paper studies the compiled version of latent communication. We ask whether one family of neural specialists can define a frozen packet space, and whether specialists from another domain and architecture can later be compiled into that same packet space without retraining the language.
 
@@ -31,7 +31,7 @@ The working hypothesis is therefore compiled rather than spontaneous: models do 
 
 We use controlled domains because known semantics make the interface falsifiable. A checksum specialist maps a discrete input to a state bucket and a margin/confidence bucket. A retrieval specialist sees a query and candidate set, then identifies the top candidate and the top1/top2 confidence gap. These tasks are different, but they share abstract variables: state/class, confidence, ambiguity, and ordering.
 
-The test is deliberately hard. A checksum-trained ABI is frozen. Retrieval models do not retrain its decoders. They only learn a small compiler from their private hidden state into the packet. If frozen checksum decoders read retrieval packets, if symbol shuffles break the result, if symbol interventions have stable effects, and if a different retrieval architecture also compiles into the same packet space, then the packet is doing more than memorizing checksum labels.
+The test is deliberately hard. A checksum-trained ABI is frozen, and retrieval models keep its decoders fixed while learning only a small compiler from their private hidden state into the packet. If frozen checksum decoders read retrieval packets, if symbol shuffles break the result, if symbol interventions have stable effects, and if a different retrieval architecture also compiles into the same packet space, then the packet is doing more than memorizing checksum labels.
 
 ## 1.1 Contributions
 
@@ -70,7 +70,7 @@ We interpret ABI transfer only after the sender specialist itself has learned. A
 
 The lead experiment trains one checksum packet ABI with two frozen decoders: one for state and one for margin. Retrieval specialists are trained separately. After the checksum ABI is frozen, retrieval models learn only a local compiler into that packet space.
 
-This is the key test. Retrieval models are not allowed to invent a new language. They must speak the checksum packet language well enough for frozen checksum decoders to understand them.
+This is the key test: retrieval models must use the checksum packet language well enough for frozen checksum decoders to understand them.
 
 ![Frozen checksum decoders recover retrieval state and margin far above shuffled controls. Relational and set/ranking rows are included as supporting context and are weaker than single-example transfer.](./figures/figure_6_replicated_canonical_abi.svg){ width=100% }
 
@@ -81,7 +81,7 @@ The checksum-trained decoders read retrieval packets far above shuffled-symbol c
 | state | 71.6% | 4.9% | 72.9% | 2.9% |
 | margin | 71.5% | 11.6% | 62.2% | 12.1% |
 
-Checksum-trained receiver heads also transfer, with the same above-control pattern. The strongest reading is simple: the packet is not just a checksum-specific code. A retrieval model, seeing a different input distribution and solving a different rule family, can compile its private state into the same packet format. Frozen decoders trained on checksum packets recover retrieval state and confidence semantics.
+Checksum-trained receiver heads also transfer, with the same above-control pattern. The strongest reading is simple: the packet generalizes beyond checksum-specific coding. A retrieval model, seeing a different input distribution and solving a different rule family, can compile its private state into the same packet format. Frozen decoders trained on checksum packets recover retrieval state and confidence semantics.
 
 Separate per-target ABIs give a useful upper bound. When margin and state are each given their own packet, retrieval transfer rises to 84%-94% under frozen decoders. Those runs are less strict because the packet is no longer shared across both targets, but they show that the domain transfer itself is robust. The multi-target packet is harder and more interesting.
 
@@ -153,15 +153,15 @@ Pair composition is the cleaner result. Set/ranking is positive in the canonical
 
 The results separate four possibilities.
 
-First, this is not source-domain memorization. Retrieval is not checksum, yet frozen checksum decoders read retrieval packets far above shuffled controls.
+First, source-domain memorization cannot explain the result. Retrieval differs from checksum, yet frozen checksum decoders read retrieval packets far above shuffled controls.
 
-Second, this is not just one architecture's private geometry. A candidate-wise retrieval model with a different computation graph compiles into the same packet ABI.
+Second, architecture-private geometry is insufficient. A candidate-wise retrieval model with a different computation graph compiles into the same packet ABI.
 
-Third, this is not an arbitrary continuous bottleneck with decorative symbol names. Symbol interventions move decoded semantics in consistent directions.
+Third, symbol interventions rule out an arbitrary continuous bottleneck with decorative symbol names. The decoded semantics move in consistent directions.
 
-Fourth, this is a compiled interface, not full natural language. The packet needs a local compiler, and composition is incomplete. That makes the claim more practical: compatible specialists can be compiled into a frozen latent interface.
+Fourth, the object is a compiled interface rather than full natural language. The packet needs a local compiler, and composition is incomplete. That makes the claim more practical: compatible specialists can be compiled into a frozen latent interface.
 
-This is why the ABI framing matters. A zero-shot hidden Esperanto would be surprising but brittle. A frozen packet language with small local compilers is a more realistic object: reusable, testable, and concrete enough to measure.
+This makes the ABI framing useful. A zero-shot hidden Esperanto would be surprising but brittle. A frozen packet language with small local compilers is a more realistic object: reusable, testable, and concrete enough to measure.
 
 # 8. Related Work
 
@@ -173,7 +173,7 @@ Mechanistic interpretability motivates the demand for semantic grounding. A late
 
 # 9. Limitations
 
-This is not zero-shot model language. New specialists need local compilers. That is the point of the paper, but it is also a real limitation.
+New specialists need local compilers, so the result should not be read as zero-shot model language. That requirement is central to the setup and also a real limitation.
 
 The domains are controlled. Checksum and retrieval/ranking are useful because their latent variables are known; they are not natural language systems or production agents.
 
@@ -189,7 +189,7 @@ We introduced a controlled test for compiled latent communication. A checksum-tr
 
 They can. Frozen checksum decoders recover retrieval state and confidence semantics, shuffled-symbol controls break the result, symbol interventions have stable semantic effects, and a candidate-wise retrieval architecture also compiles into the same packet language. Relational composition appears but remains incomplete.
 
-The result is not that models naturally share a universal hidden language. They do not start by speaking Esperanto; the evidence here is that they can be compiled into it.
+The evidence supports the compiled version of the claim: models can be made to speak a shared hidden interface after local adaptation, rather than starting with a universal language.
 
 # References
 

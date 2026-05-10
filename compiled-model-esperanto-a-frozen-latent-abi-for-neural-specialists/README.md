@@ -1,6 +1,6 @@
 # Compiling Neural Specialists into a Latent ABI
 
-A focused checksum-to-retrieval test of local compilation into a fixed latent packet ABI, with shuffled-symbol controls and symbol interventions.
+A focused checksum-to-retrieval ABI transfer study with shuffled-symbol controls, symbol interventions, and composition probes.
 
 - [PDF](./paper.pdf)
 - [Manuscript source](./paper.md)

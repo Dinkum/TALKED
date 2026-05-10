@@ -12,15 +12,15 @@ Modern AI systems are starting to look less like single monoliths and more like 
 
 This paper tests a small alternative: a frozen neural socket. The socket is trained once from two source specialist families, modular checksum and dot-product retrieval. Then the socket stops learning. New neural skills can only train local encoders into the frozen packet ABI. The packet is tiny: two code slots, each choosing one of 32 symbols. The socket's frozen readers interpret packets as a typed state and a task-local auxiliary/separation bucket.
 
-The surprising part is not that held-out retrieval still works. The surprising part is that held-out synthetic skills outside the source families work. A graph shortest-path specialist plugs into the frozen socket at 99.7% state and 99.6% auxiliary transfer. A max-index specialist reaches 95.0% state transfer. Counting positive entries reaches 93.3%. Ranking the first item reaches 92.5%. These skills were not source domains for the socket.
+Held-out retrieval is the sanity check; the stronger result is that held-out synthetic skills outside the source families work. A graph shortest-path specialist plugs into the frozen socket at 99.7% state and 99.6% auxiliary transfer. A max-index specialist reaches 95.0% state transfer. Counting positive entries reaches 93.3%. Ranking the first item reaches 92.5%. These skills were not source domains for the socket.
 
 A matched random socket does not explain the result. Across held-out skills outside the source families, the trained socket beats the random socket by 43.4 percentage points on the composite transfer score. The random control sees the same specialists, the same local adapter protocol, and the same packet size. It lacks only source-trained socket semantics.
 
-The claim is deliberately scoped: a small frozen typed ABI can act as a reusable socket for neural specialists. This is not zero-shot sender learning; it is frozen-socket transfer after local compilation. New skills do not need to retrain the socket. They compile into it.
+The claim is deliberately scoped: a small frozen typed ABI can act as a reusable socket for neural specialists. The result is frozen-socket transfer after local compilation, not zero-shot sender learning. New skills compile into the socket without retraining it.
 
 # 1. Introduction
 
-Software got powerful when components stopped needing to know each other's insides. A program can call a file system, a graphics driver, or a network stack because there is an interface in the middle. The interface is not the whole computation. It is the contract.
+Software got powerful when components stopped needing to know each other's insides. A program can call a file system, a graphics driver, or a network stack because there is an interface in the middle. The interface supplies the contract rather than the whole computation.
 
 Neural systems mostly do not have that object yet.
 
@@ -81,7 +81,7 @@ The packet ABI has two slots. Each slot chooses one of 32 symbols. The whole mes
 
 The state is the task's discrete answer bucket. The auxiliary/separation field is a task-local attribute that behaves like a margin when the task has a natural confidence gap. In retrieval it is the top1/top2 gap. In max-index it is the gap between the largest and second-largest values. In count-positive it is the smallest absolute value, meaning the distance to the nearest sign flip. In rank-first it is the distance from the first item to its nearest rank neighbor. In graph shortest-path it is not a confidence margin; it is graph density, a typed auxiliary attribute that gives the packet a second semantic coordinate.
 
-This typed contract is the entire trick. The socket is not asked to carry arbitrary thought. It is asked to carry "what state is this, and what task-local auxiliary/separation attribute goes with it?"
+This typed contract is the entire trick. The socket carries a narrow question: "what state is this, and what task-local auxiliary/separation attribute goes with it?"
 
 Training has three phases:
 
@@ -142,7 +142,7 @@ The per-skill ranking is:
 | rank-first | 78.4% | 39.2% | 39.1% | 92.5% |
 | checksum | 51.6% | 30.1% | 21.5% | 41.9% |
 
-The checksum row is weakest. It is included as a held-out source-family sanity check, while the headline claim is outside-source-family transfer. That weaker row is useful, because it keeps the story honest. This is not "everything becomes perfect." The surprising result is that the outside-source-family rows are stronger than the obvious held-out checksum row.
+The checksum row is weakest. It is included as a held-out source-family sanity check, while the headline claim is outside-source-family transfer. That weaker row matters: the trained socket does not make every held-out row perfect. The surprising result is that the outside-source-family rows are stronger than the obvious held-out checksum row.
 
 Graph shortest-path is the best example. The specialist sees a graph adjacency matrix and predicts a path-length bucket. The frozen socket was trained on modular checksum and dot-product retrieval. Still, after local compilation, the frozen state reader reaches 99.7% and the frozen auxiliary reader reaches 99.6%. The random socket's composite score is 40.7%, while the trained socket reaches 86.9%.
 
@@ -182,7 +182,7 @@ The random control is the difference between a paper and a demo.
 
 Without it, one could argue that local encoders are just powerful. Maybe any frozen decoder can be targeted if the adapter trains long enough. The random-socket control keeps that possibility alive and tests it directly.
 
-The answer is clear but not cartoonish. Random sockets learn partial structure on some state rows, especially max-index and graph-path. They do not recover the trained socket's reusable semantics. They sit around 36-41% composite on the outside-source-family skills, while the trained socket sits around 78-87%.
+The answer is clear but not cartoonish. Random sockets learn partial structure on some state rows, especially max-index and graph-path. They still fall well short of the trained socket's reusable semantics, sitting around 36-41% composite on the outside-source-family skills while the trained socket sits around 78-87%.
 
 The most important comparisons are:
 
@@ -271,17 +271,17 @@ Neural module networks compose learned modules into larger systems, often using 
 
 Emergent communication studies show that neural agents can learn messages for cooperation [2,3]. Those settings often optimize a sender and receiver together for a task. Here the key constraint is different: after source training, the receiver-side socket is frozen. Later senders must compile into an already existing ABI.
 
-Discrete latent models such as VQ-VAE show that neural systems can use learned codebooks as compact bottlenecks [4]. Our packet is also discrete and low-bandwidth, but it is not just a reconstruction latent. It is a typed interface with frozen semantic readers.
+Discrete latent models such as VQ-VAE show that neural systems can use learned codebooks as compact bottlenecks [4]. Our packet is also discrete and low-bandwidth, but its role is a typed interface with frozen semantic readers rather than a reconstruction latent.
 
 Representation similarity and model stitching ask whether internal representations can be compared, aligned, or interchanged across networks [5,6,7]. This paper is close in spirit, but the target is operational rather than diagnostic: can a later specialist plug into a frozen semantic socket and be read correctly?
 
-Task arithmetic shows that model behaviors can sometimes be edited by moving in weight space [8]. That is another path to modularity. Here the modular object is not a weight delta. It is a tiny runtime packet interface.
+Task arithmetic shows that model behaviors can sometimes be edited by moving in weight space [8]. That is another path to modularity. Here the modular object is a tiny runtime packet interface rather than a weight delta.
 
 The useful comparison is a software ABI. A normal component does not need to know the internal implementation of the operating system. It needs to compile calls to the right interface. This paper asks whether a small neural analogue can exist in a controlled setting.
 
 # 8. Limitations
 
-The domains are controlled. That is by design. Controlled domains make it possible to know exactly what state and auxiliary fields mean, and to run clean random-socket and shuffled-packet controls. The result should not be read as a claim about open-ended natural-language agents.
+The domains are controlled by design. That choice makes it possible to know exactly what state and auxiliary fields mean, and to run clean random-socket and shuffled-packet controls. The result should not be read as a claim about open-ended natural-language agents.
 
 The socket is supervised. It is trained with state and auxiliary targets. The paper does not claim unsupervised discovery of meaning.
 
@@ -289,7 +289,7 @@ The specialists are small. Larger models may make the adapter problem easier, ha
 
 The packet has a narrow type system. It carries state and task-local auxiliary/separation attributes well. Pair semantics transfer. Group semantics are positive but less crisp. A larger neural socket system would need richer types, versioning, error handling, and probably many sockets, not one two-slot packet.
 
-This version does not include adapter-capacity or packet-size sweeps. The matched random socket partially answers the "adapter can target anything" objection, but capacity and packet-size sweeps would answer it more cleanly. They should be run before making a stronger universality claim.
+This experiment does not include adapter-capacity or packet-size sweeps. The matched random socket partially answers the "adapter can target anything" objection, but capacity and packet-size sweeps would answer it more cleanly. They should be run before making a stronger universality claim.
 
 Finally, this paper tests compatibility after local compilation. It does not show that unrelated models naturally share packet coordinates before adaptation. The point is precisely that they do not need to. The specialist compiles into the socket.
 
@@ -297,7 +297,7 @@ Finally, this paper tests compatibility after local compilation. It does not sho
 
 The reproducibility bundle for this result contains the aggregate report, summary JSON, source run summaries, and the domain-transfer chart used in this manuscript. The frozen-socket scout harness and aggregate report builder are the two executable entry points; released artifacts should include their exact run commands and commit hash.
 
-The headline claim should be read against the run accounting in Section 3: three trained-socket seeds and three matched random-socket controls. The manuscript avoids the broader phrase "retained runs" because it obscures which runs establish the trained result and which runs establish the random control.
+The headline claim should be read against the run accounting in Section 3: three trained-socket seeds and three matched random-socket controls. The broader phrase "retained runs" would obscure which runs establish the trained result and which runs establish the random control.
 
 # 10. Conclusion
 
@@ -305,9 +305,9 @@ A collection of neural specialists needs more than specialists. It needs a socke
 
 This paper shows a small one. Train a frozen packet ABI on checksum and retrieval. Freeze it. Then plug in a graph shortest-path specialist, a max-index specialist, a counting specialist, a ranking specialist, and a different retrieval architecture. Train only local encoders. The frozen socket still reads typed state and task-local auxiliary attributes, and source-trained semantic heads still work above chance by large margins.
 
-The result is not a universal neural language. It is more concrete: a reusable neural ABI with a tiny packet, a typed contract, and evidence that held-out synthetic skills outside the source families can compile into it.
+The result is more concrete than a universal neural language: a reusable neural ABI with a tiny packet, a typed contract, and evidence that held-out synthetic skills outside the source families can compile into it.
 
-That is the interesting object. Not one model doing everything. Not models chatting in English. A little socket in the middle, stable enough that new neural skills can plug in.
+The interesting object is the little socket in the middle, not one model doing everything and not models chatting in English: a stable enough interface for new neural skills to plug in.
 
 # References
 
